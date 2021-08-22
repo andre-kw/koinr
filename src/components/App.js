@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import IDBContext from 'contexts/IDBContext';
+// import IDBContext from 'contexts/IDBContext';
 import ConnectButton from './ConnectButton';
 import TokenGrid from './TokenGrid';
+import BlockExplorerWorker from '../workers/BlockExplorer.worker';
 import './styles/App.css';
 
 function App() {
@@ -11,6 +12,19 @@ function App() {
   React.useEffect(() => {
     const e = window.ethereum;
     setAddress(e ? e.selectedAddress : '');
+  }, []);
+
+  React.useEffect(() => {
+    let worker;
+    async function wrapper() {
+      worker = new BlockExplorerWorker();
+
+      worker.postMessage({payload: { yo: 'what up' }});
+    }
+
+    wrapper();
+
+    return () => { if(worker) worker.terminate(); };
   }, []);
 
   React.useEffect(() => {
