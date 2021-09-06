@@ -23,7 +23,7 @@ code {
   justify-content: center;
 }
 
-#app > h1 {
+#app > header {
   margin: 0 0 1em;
   text-align: center;
 }

@@ -1,20 +1,22 @@
 import React, {useState} from 'react';
+import AccountContext from '../contexts/AccountContext';
 // import IDBContext from 'contexts/IDBContext';
 import ConnectButton from './ConnectButton';
 import TokenGrid from './TokenGrid';
+import BlockExplorer from './BlockExplorer';
 import BlockExplorerWorker from '../workers/BlockExplorer.worker';
 import './styles/App.css';
 
 function App() {
   // const db = React.useContext(IDBContext);
-  const [address, setAddress] = useState('');
+  const ctx = React.useContext(AccountContext);
 
   React.useEffect(() => {
     const e = window.ethereum;
-    setAddress(e ? e.selectedAddress : '');
+    ctx.setAddress(e ? e.selectedAddress : '');
   }, []);
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     let worker;
     async function wrapper() {
       worker = new BlockExplorerWorker();
@@ -25,18 +27,21 @@ function App() {
     wrapper();
 
     return () => { if(worker) worker.terminate(); };
-  }, []);
+  }, []);*/
 
-  React.useEffect(() => {
-    // if(address) db.open(e.selectedAddress);
-  }, [address]);
+  /* React.useEffect(() => {
+    if(address) db.open(e.selectedAddress);
+  }, [address]); */
 
   return (
-    <div id="app" className={`${address ? '' : 'landing'}`}>
-      <h1>koinichi</h1>
+    <div id="app" className={`${ctx.address ? '' : 'landing'}`}>
+      <header>
+        <h1>koinichi</h1>
+        {ctx.address && <BlockExplorer />}
+      </header>
       
-      {address && <TokenGrid address={address} />}
-      {!address && <ConnectButton setAddress={setAddress} />}
+      {ctx.address && <TokenGrid address={ctx.address} />}
+      {!ctx.address && <ConnectButton setAddress={ctx.setAddress} />}
     </div>
   );
 }

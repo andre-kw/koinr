@@ -27,6 +27,20 @@ const eth = {
         return res;
       });
   },
+  getBlockByNumber(blockNumber) {
+    eth.checkMetaMask();
+
+    return window.ethereum.request({method: 'eth_getBlockByNumber', params: [blockNumber, true]})
+      .then(res => {
+        console.log(res);
+        return res;
+      });
+  },
+  blockNumber() {
+    eth.checkMetaMask();
+
+    return window.ethereum.request({method: 'eth_blockNumber', params: []});
+  }
 };
 
 export default eth;
