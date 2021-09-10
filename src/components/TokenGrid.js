@@ -27,7 +27,9 @@ export default function TokenGrid(props) {
 
   return (
     <section id="tokens">
-      <div></div>
+      <div>
+        {acc.tokens.map(token => <p key={token.address}>{token.address}</p>)}
+      </div>
     </section>
   );
 }

@@ -4,10 +4,15 @@ import AccountContext from '../contexts/AccountContext';
 function useErrorHandler(err) {
   const ctx = React.useContext(AccountContext);
 
-  if(err && err.message === 'MetaMask not installed')
-    ctx.setAddress('');
+  return (err) => {
+    if(err?.data?.message.includes('missing trie node'))
+      return;
 
-  return (err) => console.error(`Caught error: ${err.message}`);
+    if(err?.message === 'MetaMask not installed')
+      ctx.setAddress('');
+
+    console.error(`Caught error: ${err.message}`);
+  };
 }
 
 export default useErrorHandler;

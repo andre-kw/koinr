@@ -13,6 +13,9 @@ const ethereum = {
         return res;
       })
   },
+  getCode: (address) => {
+    return window.ethereum.request({method: 'eth_getCode', params: [address]})
+  },
   getLogs: (address) => {
     const params = [{
       fromBlock: 'latest',
