@@ -1,20 +1,19 @@
-const eth = {
+const ethereum = {
   checkMetaMask: () => {
     if(!window.ethereum)
       throw Error('MetaMask not installed');
-  },
-  requestAccounts: () => {
-    eth.checkMetaMask();
 
+    return true;
+  },
+  selectedAddress: () => window.ethereum.selectedAddress,
+  requestAccounts: () => {
     return window.ethereum.request({method: 'eth_requestAccounts'})
       .then(res => {
         console.log(res)
         return res;
-      });
+      })
   },
   getLogs: (address) => {
-    eth.checkMetaMask();
-
     const params = [{
       fromBlock: 'latest',
       toBlock: 'latest',
@@ -25,22 +24,19 @@ const eth = {
       .then(res => {
         console.log(res);
         return res;
-      });
+      })
   },
-  getBlockByNumber(blockNumber) {
-    eth.checkMetaMask();
-
+  getBlockByNumber: (blockNumber) => {
     return window.ethereum.request({method: 'eth_getBlockByNumber', params: [blockNumber, true]})
       .then(res => {
-        console.log(res);
+        // console.log(res);
         return res;
-      });
+      })
+      .catch(handleError);
   },
-  blockNumber() {
-    eth.checkMetaMask();
-
-    return window.ethereum.request({method: 'eth_blockNumber', params: []});
-  }
+  blockNumber: () => {
+    return window.ethereum.request({method: 'eth_blockNumber', params: []})
+  },
 };
 
-export default eth;
+export default ethereum;

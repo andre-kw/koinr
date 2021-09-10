@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import useEthereum from '../hooks/Ethereum';
+import useWallet from '../hooks/Wallet';
 
 const chunkSize = 10;
 
 export default function BlockExplorer(props) {
-  const eth = useEthereum();
+  const eth = useWallet();
   const [currentBlock, setCurrentBlock] = useState(Number(10349289).toString(16));
   const [isExploring, setIsExploring] = useState(false);
   const [enabled, setEnabled] = useState(false);
@@ -27,11 +27,7 @@ export default function BlockExplorer(props) {
   };
 
   const explore = async () => {
-    if(!enabled) {
-      return;
-    } else if (enabled && !isExploring) {
-      return setIsExploring(true);
-    }
+    if(!enabled) return;
 
     for await (let data of await getIterator()) {
       if(data.number === data.endBlock) {

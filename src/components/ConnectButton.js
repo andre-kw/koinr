@@ -1,9 +1,10 @@
 import React from 'react';
-import eth from 'ethereum';
 import useErrorHandler from 'hooks/ErrorHandler';
+import useWallet from 'hooks/Wallet';
 import './styles/ConnectButton.css';
 
 export default function ConnectButton(props) {
+  const eth = useWallet();
   const handleError = useErrorHandler();
 
   const requestAccounts = async (e) => {
