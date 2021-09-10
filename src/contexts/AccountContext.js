@@ -1,28 +1,34 @@
 import React, {useState} from 'react';
+import useWallet from '../hooks/Wallet';
+import abi from '../abi';
 
 const AccountContext = React.createContext({
   address: '', setAddress: () => {},
-  abis: [], setABIs: () => {},
-  // tokens: []
-  /*positions: [
-    {
-      in: true,
-      at: new Date(),
-      amount: 345000000,
-      
-    }
-  ],*/
+  txs: {}, setTxs: () => {},
 });
 
 export default AccountContext;
 
 export function AccountProvider(props) {
+  const eth = useWallet();
   const [address, setAddress] = useState('');
-  const [abis, setABIs] = useState([]);
+  const [txs, setTxs] = useState([]);
+
+  React.useEffect(() => {
+    console.log(txs);
+    txs.forEach(tx => {
+      if(tx.txreceipt_status !== "1")
+        return;
+
+      if(tx.to === eth.selectedAddress()) {
+        console.log('tx history: received ' + tx.from)
+      }
+    });
+  }, [txs]);
 
   const value = {
     address, setAddress,
-    abis, setABIs,
+    txs, setTxs,
   };
 
   return (

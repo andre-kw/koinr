@@ -5,18 +5,23 @@ import useErrorHandler from '../hooks/ErrorHandler';
 import bscscan from '../apis/bscscan';
 
 export default function TokenGrid(props) {
-  const ctx = React.useContext(AccountContext);
+  const acc = React.useContext(AccountContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
 
   React.useEffect(() => {
-    // get abis
-    // eth.getLogs(props.address);
+    // (async () => {
+    //   let txs;
+
+    //   try {
+    //     txs = await bscscan.txlist(eth.selectedAddress());
+    //   } catch(e) {
+    //     handleError(e);
+    //   }
+    // })();
 
     bscscan.txlist(eth.selectedAddress())
-      .then(data => {
-        console.log(data);
-      })
+      .then(data => acc.setTxs([...data]))
       .catch(handleError);
   }, []);
 

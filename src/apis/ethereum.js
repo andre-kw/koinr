@@ -32,7 +32,6 @@ const ethereum = {
         // console.log(res);
         return res;
       })
-      .catch(handleError);
   },
   blockNumber: () => {
     return window.ethereum.request({method: 'eth_blockNumber', params: []})
