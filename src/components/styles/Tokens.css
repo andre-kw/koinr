@@ -1,0 +1,23 @@
+#tokens {
+  max-height: 100vh;
+  max-width: 25rem;
+  margin: 0 auto;
+  padding: 0 0.5em;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.token {
+  min-width: 5rem;
+  max-width: 5rem;
+  min-height: 3.5rem;
+  transition: 0.7s ease 0.7s;
+  opacity: 1;
+  display: block;
+}
+
+#tokens.loading .token {
+  opacity: 0;
+}

@@ -3,13 +3,16 @@ import {Contract} from '@ethersproject/contracts';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
+import TokenButton from './TokenButton';
 import bscscan from '../apis/bscscan';
 import abi from '../abi';
+import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
   const acc = React.useContext(AccountContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const txnIterator = async (txs) => {
@@ -40,8 +43,6 @@ export default function TokenGrid(props) {
       };
     };
 
-    console.log(abi);
-
     (async () => {
       let txs;
       const temp = [];
@@ -58,7 +59,6 @@ export default function TokenGrid(props) {
 
         let contract, name, symbol;
 
-
         try {
           contract = new Contract(token.address, abi, eth.provider);
           name = await contract.name();
@@ -72,14 +72,14 @@ export default function TokenGrid(props) {
 
       acc.setTxs([...txs]);
       acc.setTokens([...temp]);
+      setLoading(false);
     })();
   }, []);
 
   return (
-    <section id="tokens">
-      <div>
-        {acc.tokens.map(token => <p key={token.address}>{token.name}</p>)}
-      </div>
+    <section id="tokens" className={loading ? 'loading' : ''}>
+      {loading && <p>loading...</p>}
+      {acc.tokens.map(token => <TokenButton key={token.address} token={token} />)}
     </section>
   );
 }
