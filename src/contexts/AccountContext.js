@@ -72,7 +72,9 @@ export function AccountProvider(props) {
   // }, [contracts]);
 
   React.useEffect(() => {
-    console.log(tokens);
+    tokens.forEach(t => {
+      console.log('token:', t.name, `(${t.symbol})`)
+    });
   }, [tokens]);
 
   React.useEffect(() => {

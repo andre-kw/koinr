@@ -40,6 +40,8 @@ export default function TokenGrid(props) {
       };
     };
 
+    console.log(abi);
+
     (async () => {
       let txs;
       const temp = [];
@@ -54,16 +56,18 @@ export default function TokenGrid(props) {
         if(!token || temp.findIndex(t => token.address === t.address) !== -1)
           continue;
 
-        let name;
-        const contract = new Contract(token.address, abi, eth.provider);
+        let contract, name, symbol;
+
 
         try {
+          contract = new Contract(token.address, abi, eth.provider);
           name = await contract.name();
+          symbol = await contract.symbol();
         } catch(e) {
           handleError(e);
         }
         
-        temp.push({...token, contract, name});
+        temp.push({...token, contract, name, symbol});
       }
 
       acc.setTxs([...txs]);
@@ -74,7 +78,8 @@ export default function TokenGrid(props) {
   return (
     <section id="tokens">
       <div>
-        {acc.tokens.map(token => <p key={token.address}>{token.address}</p>)}
+        <p># of different tokens: {acc.tokens.length}</p>
+        {acc.tokens.map(token => <p key={token.address}>{token.name}</p>)}
       </div>
     </section>
   );
