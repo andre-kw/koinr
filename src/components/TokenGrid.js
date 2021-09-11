@@ -12,7 +12,7 @@ export default function TokenGrid(props) {
   const handleError = useErrorHandler();
 
   React.useEffect(() => {
-    const tokenIterator = async (txs) => {
+    const txnIterator = async (txs) => {
       return {
         async *[Symbol.asyncIterator]() {
           for(let i = 0; i < txs.length; i++) {
@@ -50,12 +50,20 @@ export default function TokenGrid(props) {
         handleError(e);
       }
 
-      for await (let token of await tokenIterator(txs)) {
+      for await (let token of await txnIterator(txs)) {
         if(!token || temp.findIndex(t => token.address === t.address) !== -1)
           continue;
+
+        let name;
+        const contract = new Contract(token.address, abi, eth.provider);
+
+        try {
+          name = await contract.name();
+        } catch(e) {
+          handleError(e);
+        }
         
-        token.contract = new Contract(token.address, abi, eth.provider);
-        temp.push(token);
+        temp.push({...token, contract, name});
       }
 
       acc.setTxs([...txs]);

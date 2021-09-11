@@ -6,6 +6,7 @@ import useWallet from '../hooks/Wallet';
 const AccountContext = React.createContext({
   address: '', setAddress: () => {},
   txs: {}, setTxs: () => {},
+  // contracts: [], setContracts: () => {},
   tokens: [], setTokens: () => {},
 });
 
@@ -43,17 +44,35 @@ export function AccountProvider(props) {
   const eth = useWallet();
   const [address, setAddress] = useState('');
   const [txs, setTxs] = useState([]);
+  // const [contracts, setContracts] = useState([]);
   const [tokens, setTokens] = useState([]);
+
+  // const contractIterator = async () => {
+  //   return {
+  //     async *[Symbol.asyncIterator]() {
+  //       for(let i = 0; i < contracts.length; i++) {
+  //         yield {address: contracts[i].address};
+  //       }
+  //     }
+  //   };
+  // };
+
+  // React.useEffect(() => {
+  //   console.log(contracts);
+
+  //   if(contracts.length > 0)
+  //     contracts[0].name().then(res => console.log('testtt', res))
+  //       .catch(err => console.log('errors suck ass', err));
+
+  //   (async () => {
+  //     for await (let tokenData of await contractIterator()) {
+  //       console.log('tokenData', tokenData)
+  //     }
+  //   })();
+  // }, [contracts]);
 
   React.useEffect(() => {
     console.log(tokens);
-
-    // if(tokens[tokens.length -1].name)
-    //   return;
-
-    // setTokens(tokens.map(token => {
-    //   return {...token, }
-    // }));
   }, [tokens]);
 
   React.useEffect(() => {
@@ -63,6 +82,7 @@ export function AccountProvider(props) {
   const value = {
     address, setAddress,
     txs, setTxs,
+    // contracts, setContracts,
     tokens, setTokens,
   };
 
