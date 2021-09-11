@@ -78,7 +78,6 @@ export default function TokenGrid(props) {
   return (
     <section id="tokens">
       <div>
-        <p># of different tokens: {acc.tokens.length}</p>
         {acc.tokens.map(token => <p key={token.address}>{token.name}</p>)}
       </div>
     </section>

@@ -36,8 +36,7 @@ function App() {
   return (
     <div id="app" className={`${ctx.address ? '' : 'landing'}`}>
       <header>
-        <h1>koinichi</h1>
-        {ctx.address && <BlockExplorer />}
+        <h1>koinchi</h1>
       </header>
       
       {ctx.address && <TokenGrid address={ctx.address} />}
