@@ -36,7 +36,11 @@ function App() {
   return (
     <div id="app" className={`${ctx.address ? '' : 'landing'}`}>
       <header>
-        <h1>koinchi</h1>
+        <div id="header-left"></div>
+        <div id="header-center">
+          <h1>koinchi</h1>
+        </div>
+        <div id="header-right"></div>
       </header>
       
       {ctx.address && <TokenGrid address={ctx.address} />}

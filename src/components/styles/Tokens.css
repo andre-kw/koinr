@@ -1,8 +1,8 @@
-#tokens {
+#tokens > div {
   max-height: 100vh;
-  max-width: 25rem;
+  max-width: 30rem;
   margin: 0 auto;
-  padding: 0 0.5em;
+  padding: 1em;
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
@@ -12,10 +12,37 @@
 .token {
   min-width: 5rem;
   max-width: 5rem;
-  min-height: 3.5rem;
+  min-height: 4.5rem;
+  padding: 0.25em;
   transition: 0.7s ease 0.7s;
   opacity: 1;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.token img {
+  width: 100%;
+  min-height: 80%;
+}
+
+.token-stats {
+  width: 100%;
+  padding-top: 0.25em;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.token-stats p {
+  margin: 0;
+  font-size: 0.6rem;
+  font-weight: bold;
+  align-self: flex-end;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #tokens.loading .token {

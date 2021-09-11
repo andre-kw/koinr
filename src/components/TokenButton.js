@@ -15,7 +15,9 @@ export default function TokenButton(props) {
   return (
     <button className="token" key={props.token.address}>
       <img src={imgSrc} />
-      <span>{props.token.symbol || "???"}</span>
+      <div className="token-stats">
+        <p>1.25B {props.token.symbol || "???"}</p>
+      </div>
     </button>
   );
 }

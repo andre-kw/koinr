@@ -78,8 +78,10 @@ export default function TokenGrid(props) {
 
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
-      {loading && <p>loading...</p>}
-      {acc.tokens.map(token => <TokenButton key={token.address} token={token} />)}
+      <div>
+        {loading && <p>loading...</p>}
+        {acc.tokens.map(token => <TokenButton key={token.address} token={token} />)}
+      </div>
     </section>
   );
 }
