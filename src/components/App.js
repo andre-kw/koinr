@@ -11,10 +11,10 @@ function App() {
   // const db = React.useContext(IDBContext);
   const ctx = React.useContext(AccountContext);
 
-  React.useEffect(() => {
-    const e = window.ethereum;
-    ctx.setAddress(e ? e.selectedAddress : '');
-  }, []);
+  // React.useEffect(() => {
+  //   const e = window.ethereum;
+  //   ctx.setAddress(e ? e.selectedAddress : '');
+  // }, []);
 
   /*React.useEffect(() => {
     let worker;

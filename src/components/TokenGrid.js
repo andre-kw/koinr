@@ -1,8 +1,10 @@
 import React from 'react';
+import {Contract} from '@ethersproject/contracts';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import bscscan from '../apis/bscscan';
+import abi from '../abi';
 
 export default function TokenGrid(props) {
   const acc = React.useContext(AccountContext);
@@ -10,19 +12,55 @@ export default function TokenGrid(props) {
   const handleError = useErrorHandler();
 
   React.useEffect(() => {
-    // (async () => {
-    //   let txs;
+    const tokenIterator = async (txs) => {
+      return {
+        async *[Symbol.asyncIterator]() {
+          for(let i = 0; i < txs.length; i++) {
+            if(txs.txreceipt_status !== "1")
+              yield;
 
-    //   try {
-    //     txs = await bscscan.txlist(eth.selectedAddress());
-    //   } catch(e) {
-    //     handleError(e);
-    //   }
-    // })();
+            if(txs[i].from === eth.selectedAddress()) {
+              // sending/swapping
+              let code;
 
-    bscscan.txlist(eth.selectedAddress())
-      .then(data => acc.setTxs([...data]))
-      .catch(handleError);
+              try {
+                code = await eth.getCode(txs[i].to);
+              } catch(e) {
+                handleError(e);
+              }
+
+              if(code && code !== '0x')
+                yield {address: txs[i].to};
+
+            } else if(txs[i].to === eth.selectedAddress()) {
+              // TODO: receiving
+            }
+          }
+        }
+      };
+    };
+
+    (async () => {
+      let txs;
+      const temp = [];
+
+      try {
+        txs = await bscscan.txlist(eth.selectedAddress());
+      } catch(e) {
+        handleError(e);
+      }
+
+      for await (let token of await tokenIterator(txs)) {
+        if(!token || temp.findIndex(t => token.address === t.address) !== -1)
+          continue;
+        
+        token.contract = new Contract(token.address, abi, eth.provider);
+        temp.push(token);
+      }
+
+      acc.setTxs([...txs]);
+      acc.setTokens([...temp]);
+    })();
   }, []);
 
   return (

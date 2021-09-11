@@ -4,7 +4,7 @@ import eth from '../apis/ethereum';
 import useErrorHandler from './ErrorHandler';
 
 export default function useWallet() {
-  const [provider, setProvider] = React.useState(null);
+  const [provider, setProvider] = React.useState(new Web3Provider(window.ethereum));
   const handleError = useErrorHandler();
 
   React.useEffect(() => {
