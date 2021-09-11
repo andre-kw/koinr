@@ -38,7 +38,7 @@ function App() {
       <header>
         <div id="header-left"></div>
         <div id="header-center">
-          <h1>koinchi</h1>
+          <h1>koinview</h1>
         </div>
         <div id="header-right"></div>
       </header>
