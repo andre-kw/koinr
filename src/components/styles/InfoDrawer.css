@@ -1,30 +1,45 @@
 #info-drawer {
-  width: 80%;
-  max-width: 25rem;
+  width: 75%;
+  max-width: 22rem;
   min-height: 22em;
-  margin: 0 auto 1em;
+  margin: 0 auto 2em;
+  padding: 1.5em;
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
-  transform: translateY(50vh);
+  transform: translateY(60vh);
   z-index: 10;
+  background: #fff;
+  border: 2px solid #797979;
+  border-radius: 8px;
 }
 
 #info-drawer.open {
-  animation: 0.5s slide-up;
+  animation: 0.35s slide-up;
   animation-fill-mode: forwards;
 }
 
 #info-drawer.closing {
-  animation: 0.5s slide-down;
-  animation-fill-mode: forwards;
+  animation: 0.35s slide-down;
+  pointer-events: none;
+}
+
+#info-drawer header {
+  display: flex;
+  flex-direction: column;
+}
+
+#info-drawer h2 {
+  margin: 0;
 }
 
 @keyframes slide-up {
-  from { transform: translateY(50vh) }
+  from { transform: translateY(60vh) }
   to { transform: translateY(0) }
 }
 
 @keyframes slide-down {
   from { transform: translateY(0) }
-  to { transform: translateY(50vh) }
+  to { transform: translateY(60vh) }
 }

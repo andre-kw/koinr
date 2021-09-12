@@ -49,7 +49,7 @@ function App() {
       {acc.address && <InfoDrawer tokenAddress={infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />}
       {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
 
-      <BackgroundOverlay show={!!infoDrawerAddress} />
+      <BackgroundOverlay show={!!infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />
     </div>
   );
 }
