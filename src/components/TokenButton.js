@@ -1,14 +1,22 @@
 import React from 'react';
 
 export default function TokenButton(props) {
+  const imgRef = React.useRef();
   const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.token.address}.png`);
   // const [imgSrc, setImgSrc] = React.useState(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${props.token.address}/logo.png`);
-  const fallbackImgSrc = 'https://cdn.pixabay.com/photo/2021/04/30/16/47/bnb-6219388_1280.png';
+  const fallbackImgSrc = '/img/bnb.svg';
+
+  const onClick = (e) => {
+    imgRef.current.classList.add('clicked');
+
+    setTimeout(() => {imgRef.current.classList.remove('clicked')}, 500);
+  };
 
   return (
-    <button className="token" key={props.token.address}>
+    <button className="token" key={props.token.address} onClick={onClick}>
       <img 
         src={imgSrc} 
+        ref={imgRef} 
         width="73" 
         height="73" 
         className={imgSrc === fallbackImgSrc ? 'no-logo':''}

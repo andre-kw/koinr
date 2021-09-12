@@ -32,22 +32,26 @@
   margin-bottom: 0.35em;
   border: 1px solid #bdbdbd;
   border-radius: 50%;
-  outline: none;
   box-shadow: 0px 4px 11px -11px black;
   transition: 0.25s ease 0s;
-  opacity: 0;
-  animation: 0.75s fade-in;
+  /* opacity: 0; */
+  /* animation: 0.75s fade-in; */
   animation-fill-mode: forwards;
+  pointer-events: none;
 }
 
-.token:hover img {
+.token:hover img, .token:focus img {
   transform: translateY(-7px);
   box-shadow: 0px 7px 11px -5px #4e4e4e;
 }
 
+.token img.clicked {
+  animation: 0.5s popp;
+  transform: translateY(-7px);
+}
+
 .token img.no-logo {
-  opacity: 0.35;
-  /* filter: grayscale(1); */
+  filter: sepia(1);
 }
 
 .token-stats {
@@ -79,4 +83,15 @@
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes popp {
+  from {
+    transform: scale(0.85);
+  }
+
+  to {
+    transform: scale(1);
+    transform: translateY(-7px);
+  }
 }
