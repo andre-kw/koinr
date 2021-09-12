@@ -1,18 +1,24 @@
 #info-drawer {
   width: 75%;
   max-width: 22rem;
-  min-height: 22em;
+  min-height: 25em;
   margin: 0 auto 2em;
-  padding: 1.5em;
+  padding: 1.25em;
+  display: none;
+  flex-direction: column;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  transform: translateY(65vh);
+  transform: translateY(70vh);
   z-index: 10;
   background: #fff;
   border: 3px solid #504e4e;
   border-radius: 8px;
+}
+
+#info-drawer[open] {
+  display: flex;
 }
 
 #info-drawer.open {
@@ -29,6 +35,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding: 0.5em;
 }
 
 #info-drawer header > img {
@@ -40,16 +47,18 @@
 }
 
 #info-drawer h2 {
-  margin: 0;
+  margin: 0.25em 0;
+  font-size: 1.25rem;
 }
 
 #info-drawer .close {
   position: absolute;
-  right: 1em;
-  top: 1em;
+  right: 1.5em;
+  top: 1.5em;
   appearance: none;
   background: rgba(175, 175, 175, 0.25);
   border: 1px solid gray;
+  font-size: 0.75em;
   padding: .75em 1em;
   border-radius: 35%;
   cursor: pointer;
@@ -64,12 +73,22 @@
   background: #fff;
 }
 
+#info-drawer > div {
+  border: 1px solid #c2c2c2;
+  min-height: 100%;
+  flex-grow: 1;
+  border-radius: 7px;
+  padding: .75em;
+  box-shadow: inset 0px 4px 12px -11px black;
+}
+
+
 @keyframes slide-up {
-  from { transform: translateY(65vh) }
+  from { transform: translateY(70vh) }
   to { transform: translateY(0) }
 }
 
 @keyframes slide-down {
   from { transform: translateY(0) }
-  to { transform: translateY(65vh) }
+  to { transform: translateY(70vh) }
 }
