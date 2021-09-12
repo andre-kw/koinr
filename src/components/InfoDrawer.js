@@ -41,11 +41,14 @@ export default function InfoDrawer(props) {
             height="73" 
             onError={e => {e.target.onerror = null; setImgSrc('/img/bnb.png')}} />
           <h2>{token.name || <em>unknown token</em>}</h2>
+          <div id="drawer-ctrls">
+            <button>Copy address</button>
+          </div>
         </header>
         <button className="close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
 
         <div>
-          <p>blah blah</p>
+          <p>{token.address}</p>
         </div>
       </>}
     </dialog>
