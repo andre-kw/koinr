@@ -5,20 +5,20 @@
   right: 0;
   bottom: 0;
   display: none;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.75);
   opacity: 0;
   z-index: 5;
 }
 
 #bg-overlay.show {
   display: block;
-  animation: 0.5s fade-in;
+  animation: 0.25s fade-in;
   animation-fill-mode: forwards;
 }
 
 #bg-overlay.closing {
   display: block;
-  animation: 0.5s fade-out;
+  animation: 0.25s fade-out;
   animation-fill-mode: forwards;
   opacity: 1;
 }
