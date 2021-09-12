@@ -1,10 +1,12 @@
 #info-drawer {
   width: 80%;
   max-width: 25rem;
+  min-height: 22em;
   margin: 0 auto 1em;
   position: absolute;
   bottom: 0;
   transform: translateY(50vh);
+  z-index: 10;
 }
 
 #info-drawer.open {

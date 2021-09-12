@@ -51,7 +51,7 @@
 }
 
 .token img.no-logo {
-  filter: sepia(1);
+  /* filter: sepia(1); */
 }
 
 .token-stats {
@@ -78,11 +78,6 @@
 
 #tokens.loading .token {
   opacity: 0;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 @keyframes popp {

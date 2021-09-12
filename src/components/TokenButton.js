@@ -4,7 +4,7 @@ export default function TokenButton(props) {
   const imgRef = React.useRef();
   const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.token.address}.png`);
   // const [imgSrc, setImgSrc] = React.useState(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${props.token.address}/logo.png`);
-  const fallbackImgSrc = '/img/bnb.svg';
+  const fallbackImgSrc = '/img/bnb.png';
 
   const onClick = (e) => {
     imgRef.current.classList.add('clicked');

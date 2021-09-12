@@ -4,6 +4,7 @@ import AccountContext from '../contexts/AccountContext';
 import ConnectButton from './ConnectButton';
 import TokenGrid from './TokenGrid';
 import InfoDrawer from './InfoDrawer';
+import BackgroundOverlay from './BackgroundOverlay';
 // import BlockExplorer from './BlockExplorer';
 import './styles/App.css';
 
@@ -47,6 +48,8 @@ function App() {
       {acc.address && <TokenGrid setInfoDrawerAddress={setInfoDrawerAddress} />}
       {acc.address && <InfoDrawer tokenAddress={infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />}
       {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
+
+      <BackgroundOverlay show={!!infoDrawerAddress} />
     </div>
   );
 }
