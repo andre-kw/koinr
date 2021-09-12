@@ -8,8 +8,9 @@ export default function TokenButton(props) {
 
   const onClick = (e) => {
     imgRef.current.classList.add('clicked');
-
     setTimeout(() => {imgRef.current.classList.remove('clicked')}, 500);
+
+    props.onClick();
   };
 
   return (

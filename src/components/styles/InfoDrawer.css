@@ -1,0 +1,28 @@
+#info-drawer {
+  width: 80%;
+  max-width: 25rem;
+  margin: 0 auto 1em;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(50vh);
+}
+
+#info-drawer.open {
+  animation: 0.5s slide-up;
+  animation-fill-mode: forwards;
+}
+
+#info-drawer.closing {
+  animation: 0.5s slide-down;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(50vh) }
+  to { transform: translateY(0) }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(0) }
+  to { transform: translateY(50vh) }
+}

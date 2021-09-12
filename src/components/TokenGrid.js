@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Contract} from '@ethersproject/contracts';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
@@ -12,7 +12,7 @@ export default function TokenGrid(props) {
   const acc = React.useContext(AccountContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
     const txnIterator = async (txs) => {
@@ -76,11 +76,16 @@ export default function TokenGrid(props) {
     })();
   }, []);
 
+  const openInfoDrawer = (address) => {
+    props.setInfoDrawerAddress(address);
+  };
+
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
       <div>
         {loading && <p>loading...</p>}
-        {acc.tokens.map(token => <TokenButton key={token.address} token={token} />)}
+        {acc.tokens.map(token => 
+          <TokenButton key={token.address} token={token} onClick={() => openInfoDrawer(token.address)} />)}
       </div>
     </section>
   );

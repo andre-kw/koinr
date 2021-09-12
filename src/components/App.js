@@ -3,17 +3,18 @@ import AccountContext from '../contexts/AccountContext';
 // import IDBContext from 'contexts/IDBContext';
 import ConnectButton from './ConnectButton';
 import TokenGrid from './TokenGrid';
-import BlockExplorer from './BlockExplorer';
-import BlockExplorerWorker from '../workers/BlockExplorer.worker';
+import InfoDrawer from './InfoDrawer';
+// import BlockExplorer from './BlockExplorer';
 import './styles/App.css';
 
 function App() {
   // const db = React.useContext(IDBContext);
-  const ctx = React.useContext(AccountContext);
+  const acc = React.useContext(AccountContext);
+  const [infoDrawerAddress, setInfoDrawerAddress] = useState(null);
 
   // React.useEffect(() => {
   //   const e = window.ethereum;
-  //   ctx.setAddress(e ? e.selectedAddress : '');
+  //   acc.setAddress(e ? e.selectedAddress : '');
   // }, []);
 
   /*React.useEffect(() => {
@@ -34,7 +35,7 @@ function App() {
   }, [address]); */
 
   return (
-    <div id="app" className={`${ctx.address ? '' : 'landing'}`}>
+    <div id="app" className={`${acc.address ? '' : 'landing'}`}>
       <header>
         <div id="header-left"></div>
         <div id="header-center">
@@ -43,8 +44,9 @@ function App() {
         <div id="header-right"></div>
       </header>
       
-      {ctx.address && <TokenGrid address={ctx.address} />}
-      {!ctx.address && <ConnectButton setAddress={ctx.setAddress} />}
+      {acc.address && <TokenGrid setInfoDrawerAddress={setInfoDrawerAddress} />}
+      {acc.address && <InfoDrawer tokenAddress={infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />}
+      {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
     </div>
   );
 }
