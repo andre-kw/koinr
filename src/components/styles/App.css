@@ -36,6 +36,38 @@ code {
   color: #022716;
 }
 
+.btn {
+  padding: 6px 9px;
+  font-size: 11px;
+  margin: 5px 10px 5px 0;
+  appearance: none;
+  border: 1px solid gray;
+  color: #363636;
+  border-radius: 5px;
+  background: #e4e4e4;
+  cursor: pointer;
+  transition: .25s all;
+}
+
+.btn:hover, .btn:focus {
+  background: #d4d4d4;
+  border-color: #e4e4e4;
+}
+
+.btn > svg {
+  margin-right: 4px;
+}
+
+.btn > img.icon {
+  max-height: 13px;
+  display: inline-block;
+  margin-right: 4px;
+  /* filter: grayscale(1); */
+  margin-bottom: -3px;
+}
+
+.btn-bsc { color: navy }
+
 
 
 @keyframes fade-in {

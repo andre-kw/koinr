@@ -35,7 +35,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding: 0.5em;
+  padding: 0.5em 0;
 }
 
 #info-drawer header > img {
@@ -80,6 +80,10 @@
   border-radius: 7px;
   padding: .75em;
   box-shadow: inset 0px 4px 12px -11px black;
+}
+
+#drawer-ctrls {
+  width: 100%;
 }
 
 

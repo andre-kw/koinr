@@ -1,16 +1,21 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ClipboardJS from 'clipboard';
 import AccountContext from '../contexts/AccountContext';
 import './styles/InfoDrawer.css';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
   const [token, setToken] = React.useState(null);
   const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.tokenAddress}.png`);
   const dialogRef = React.useRef();
+  const clipboard = new ClipboardJS('#btn-copy');
 
   const close = (e) => {
     dialogRef.current.classList.add('closing');
     document.querySelector('#bg-overlay').classList.add('closing');
+    clipboard.destroy();
 
     setTimeout(() => {
       dialogRef.current.classList.remove('closing');
@@ -19,6 +24,10 @@ export default function InfoDrawer(props) {
       // props.setInfoDrawerAddress(null);
     }, 500);
   };
+
+  // React.useEffect(() => {
+  //   clipboard = new ClipboardJS('#btn-copy');
+  // }, []);
 
   React.useEffect(() => {
     if(!props.tokenAddress) {
@@ -42,13 +51,14 @@ export default function InfoDrawer(props) {
             onError={e => {e.target.onerror = null; setImgSrc('/img/bnb.png')}} />
           <h2>{token.name || <em>unknown token</em>}</h2>
           <div id="drawer-ctrls">
-            <button>Copy address</button>
+            <button className="btn" id="btn-copy" data-clipboard-text={token.address}><FontAwesomeIcon icon={faCopy} /> Copy address</button>
+            <button className="btn btn-bsc"><img src="/img/bscscan.png" className="icon" /> BscScan</button>
           </div>
         </header>
         <button className="close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
 
         <div>
-          <p>{token.address}</p>
+          <p>a fine choice</p>
         </div>
       </>}
     </dialog>
