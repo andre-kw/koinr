@@ -25,9 +25,9 @@ export default function InfoDrawer(props) {
     }, 500);
   };
 
-  // React.useEffect(() => {
-  //   clipboard = new ClipboardJS('#btn-copy');
-  // }, []);
+  const openBscScan = (e) => {
+    window.open(`https://bscscan.com/token/${token.address}`, '_blank');
+  };
 
   React.useEffect(() => {
     if(!props.tokenAddress) {
@@ -52,7 +52,7 @@ export default function InfoDrawer(props) {
           <h2>{token.name || <em>unknown token</em>}</h2>
           <div id="drawer-ctrls">
             <button className="btn" id="btn-copy" data-clipboard-text={token.address}><FontAwesomeIcon icon={faCopy} /> Copy address</button>
-            <button className="btn btn-bsc"><img src="/img/bscscan.png" className="icon" /> BscScan</button>
+            <button className="btn btn-bsc" onClick={openBscScan}><img src="/img/bscscan.png" className="icon" /> BscScan</button>
           </div>
         </header>
         <button className="close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
