@@ -61,17 +61,19 @@ export default function TokenGrid(props) {
       if(!token || temp.findIndex(t => token.address === t.address) !== -1)
         continue;
 
-      let contract, name, symbol;
+      let contract, name, symbol, balance, decimals;
 
       try {
         contract = new Contract(token.address, abi, eth.provider);
         name = await contract.name();
         symbol = await contract.symbol();
+        balance = await contract.balanceOf(eth.selectedAddress());
+        decimals = await contract.decimals();
       } catch(e) {
         handleError(e);
       }
       
-      temp.push({...token, contract, name, symbol});
+      temp.push({...token, contract, name, symbol, balance, decimals});
     }
 
     acc.setTxs([...txs]);
