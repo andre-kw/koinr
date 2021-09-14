@@ -52,9 +52,14 @@ export default function InfoDrawer(props) {
             height="73" 
             onError={e => {e.target.onerror = null; setImgSrc('/img/bnb.png')}} />
           <h2>{token.name || <em>unknown token</em>}</h2>
+
+          {checksumAddress && 
+            <button id="btn-copy" data-clipboard-text={checksumAddress} aria-label={`Copy ${token.name} contract address`}>
+              <FontAwesomeIcon icon={faCopy} /> {checksumAddress}
+            </button> }
+
           <div id="drawer-ctrls">
-            <button className="btn" id="btn-copy" data-clipboard-text={token.address}><FontAwesomeIcon icon={faCopy} /> Copy address</button>
-            <a href={`https://bscscan.com/token/${token.address}`} className="btn btn-bsc" target="_blank"><img src="/img/bscscan.png" className="icon" /> BscScan</a>
+            <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank"><img src="/img/bscscan.png" className="icon" /> BscScan</a>
           </div>
         </header>
         <button className="close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
