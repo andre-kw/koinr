@@ -70,6 +70,28 @@ code {
 
 .btn-bsc { color: navy }
 
+#load-spinner {
+  width: 7em;
+  height: 10em;
+  margin: 0 auto;
+  background-image: url(/public/img/duck.gif);
+  background-size: cover;
+  position: relative;
+}
+
+  #load-spinner::after {
+    display: block;
+    content: 'wait a sec';
+    width: 8em;
+    height: 1em;
+    margin: 0 auto;
+    position: absolute;
+    bottom: -1em;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: gray;
+  }
 
 
 @keyframes fade-in {
