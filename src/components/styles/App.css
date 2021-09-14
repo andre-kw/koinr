@@ -47,6 +47,8 @@ code {
   background: #e4e4e4;
   cursor: pointer;
   transition: .25s all;
+  font-size: 0.7rem;
+  text-decoration: none;
 }
 
 .btn:hover, .btn:focus {

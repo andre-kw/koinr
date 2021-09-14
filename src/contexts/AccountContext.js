@@ -15,11 +15,11 @@ export function AccountProvider(props) {
   const [txs, setTxs] = useState([]);
   const [tokens, setTokens] = useState([]);
 
-  React.useEffect(() => {
-    tokens.forEach(t => {
-      console.log('token:', t.name, `(${t.symbol})`)
-    });
-  }, [tokens]);
+  // React.useEffect(() => {
+  //   tokens.forEach(t => {
+  //     console.log('token:', t.name, `(${t.symbol})`)
+  //   });
+  // }, [tokens]);
 
   React.useEffect(() => {
     setAddress(window.ethereum.selectedAddress);

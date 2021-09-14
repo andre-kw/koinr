@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClipboardJS from 'clipboard';
+import { toChecksumAddress } from 'web3-utils';
 import AccountContext from '../contexts/AccountContext';
 import './styles/InfoDrawer.css';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
-  const [token, setToken] = React.useState(null);
-  const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.tokenAddress}.png`);
+  const [token, setToken] = useState(null);
+  const [checksumAddress, setChecksumAddress] = useState('');
+  const [imgSrc, setImgSrc] = useState('');
+  // const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.tokenAddress}.png`);
   const dialogRef = React.useRef();
   const clipboard = new ClipboardJS('#btn-copy');
 
@@ -25,18 +28,17 @@ export default function InfoDrawer(props) {
     }, 500);
   };
 
-  const openBscScan = (e) => {
-    window.open(`https://bscscan.com/token/${token.address}`, '_blank');
-  };
-
   React.useEffect(() => {
     if(!props.tokenAddress) {
       close();
       return;
     }
 
-    setToken(acc.tokens.find(t => t.address === props.tokenAddress));
-    setImgSrc(`https://pancakeswap.finance/images/tokens/${props.tokenAddress}.png`);
+    const t = acc.tokens.find(t => t.address === props.tokenAddress),
+      addr = toChecksumAddress(t.address);
+    setToken(t);
+    setChecksumAddress(addr);
+    setImgSrc(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${addr}/logo.png`);
     document.querySelector('#bg-overlay').classList.add('show'); // i know, ew
   }, [props.tokenAddress]);
 
@@ -52,7 +54,7 @@ export default function InfoDrawer(props) {
           <h2>{token.name || <em>unknown token</em>}</h2>
           <div id="drawer-ctrls">
             <button className="btn" id="btn-copy" data-clipboard-text={token.address}><FontAwesomeIcon icon={faCopy} /> Copy address</button>
-            <button className="btn btn-bsc" onClick={openBscScan}><img src="/img/bscscan.png" className="icon" /> BscScan</button>
+            <a href={`https://bscscan.com/token/${token.address}`} className="btn btn-bsc" target="_blank"><img src="/img/bscscan.png" className="icon" /> BscScan</a>
           </div>
         </header>
         <button className="close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>

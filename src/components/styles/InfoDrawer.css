@@ -60,7 +60,7 @@
   border: 1px solid gray;
   font-size: 0.75em;
   padding: .75em 1em;
-  border-radius: 35%;
+  border-radius: 20%;
   cursor: pointer;
   transition: .15s all;
   outline: none;

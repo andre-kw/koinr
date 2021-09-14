@@ -1,9 +1,11 @@
 import React from 'react';
+import { toChecksumAddress } from 'web3-utils';
 
 export default function TokenButton(props) {
   const imgRef = React.useRef();
-  const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.token.address}.png`);
-  // const [imgSrc, setImgSrc] = React.useState(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${props.token.address}/logo.png`);
+  // const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.token.address}.png`);
+  const address = toChecksumAddress(props.token.address);
+  const [imgSrc, setImgSrc] = React.useState(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${address}/logo.png`);
   const fallbackImgSrc = '/img/bnb.png';
 
   const onClick = (e) => {
