@@ -36,11 +36,11 @@ function App() {
   }, [address]); */
 
   return (
-    <div id="app" className={`${acc.address ? '' : 'landing'}`}>
+    <div id="app" className={`${acc.address ? '' : 'landing'} ${infoDrawerAddress ? 'blur' : ''}`}>
       <header>
         <div id="header-left"></div>
         <div id="header-center">
-          <h1>koinora</h1>
+          <h1>KOOINR</h1> {/* COINBANA // KOINORI // KOOINR */}
         </div>
         <div id="header-right"></div>
       </header>

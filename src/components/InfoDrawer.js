@@ -42,6 +42,12 @@ export default function InfoDrawer(props) {
     document.querySelector('#bg-overlay').classList.add('show'); // i know, ew
   }, [props.tokenAddress]);
 
+  React.useEffect(() => {
+    return function cleanup() {
+      props.setInfoDrawerAddress(null);
+    };
+  }, []);
+
   return (
     <dialog open={token} id="info-drawer" className={token ? 'open' : ''} ref={dialogRef}>
       {token && <>

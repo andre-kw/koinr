@@ -1,6 +1,5 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 body {
   margin: 0;
@@ -10,12 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 
 #app.landing {
   height: 100vh;
@@ -36,10 +29,10 @@ code {
 #app > header h1 {
   margin: 1em 0 0.5em;
   font-size: 2.75rem;
-  font-family: 'Press Start 2P';
+  font-family: 'Fjalla One';
   /* -webkit-text-stroke: 1px #00944f; */
-  color: #e2e2e2;
-    text-shadow: 5px 5px 0px #bbbbbb;
+  color: #4b4b4b;
+    /* text-shadow: 5px 5px 0px #bbbbbb; */
 }
 
 .btn {
@@ -98,6 +91,7 @@ code {
     text-align: center;
     color: gray;
   }
+
 
 
 @keyframes fade-in {
