@@ -17,6 +17,7 @@
   "license": "ISC",
   "homepage": "https://andrewillie.com/koinr",
   "dependencies": {
+    "@ethersproject/bignumber": "^5.4.2",
     "@ethersproject/contracts": "^5.4.1",
     "@ethersproject/providers": "^5.4.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

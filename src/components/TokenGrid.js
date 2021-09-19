@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Contract} from '@ethersproject/contracts';
+import {BigNumber,isBigNumberish} from '@ethersproject/bignumber/lib/bignumber';
 import PullToRefresh from 'pulltorefreshjs';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
@@ -75,11 +76,11 @@ export default function TokenGrid(props) {
         // continue;
       }
 
-      if(!balance || typeof balance !== 'bigint')
-        balance = 0;
+      if(!isBigNumberish(balance))
+        balance = BigNumber.from(0);
 
-      if(!decimals || typeof decimals !== 'bigint')
-        decimals = 1; // TODO: this could be incorrect but also could indicate bad token
+      if(!isBigNumberish(decimals))
+        decimals = BigNumber.from(1); // TODO: this could be incorrect but also could indicate bad token
       
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
