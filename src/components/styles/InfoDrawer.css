@@ -129,10 +129,16 @@
   float: right;
   font-weight: bold;
   font-size: 1.25rem;
-  color: #0eb5f7;
+  color: #fff;
   font-family: 'Archivo';
   font-weight: 500;
   letter-spacing: 1px;
+}
+
+#drawer-balance {
+  background-color: #0e96f7;
+  padding: 3px 5px;
+  border-radius: 5px;
 }
 
 

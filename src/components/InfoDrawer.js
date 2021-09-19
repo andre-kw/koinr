@@ -7,6 +7,7 @@ import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import BscImg from '../../public/img/bscscan.png';
 import './styles/InfoDrawer.css';
 
 export default function InfoDrawer(props) {
@@ -77,9 +78,11 @@ export default function InfoDrawer(props) {
 
           <div id="drawer-ctrls">
             <div>
-              <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank"><img src="/img/bscscan.png" className="icon" /> BscScan</a>
+              <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank"><img src={BscImg} className="icon" /> BscScan</a>
             </div>
-            <p>{token && token.computedBalance ? token.computedBalance : '...'}</p>
+            <div id="drawer-balance">
+              <p>{token && token.computedBalance ? token.computedBalance : '---'}</p>
+            </div>
           </div>
         </header>
         <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
