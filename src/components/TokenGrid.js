@@ -75,8 +75,11 @@ export default function TokenGrid(props) {
         // continue;
       }
 
-      if(!balance || isNaN(balance))
+      if(!balance || typeof balance !== 'bigint')
         balance = 0;
+
+      if(!decimals || typeof decimals !== 'bigint')
+        decimals = 1; // TODO: this could be incorrect but also could indicate bad token
       
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
