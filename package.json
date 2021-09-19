@@ -1,6 +1,6 @@
 {
-  "name": "koinichi",
-  "version": "0.1.0",
+  "name": "koinr",
+  "version": "0.2.0",
   "description": "mobile-first crypto portfolio",
   "main": "src/index.js",
   "scripts": {
