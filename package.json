@@ -6,13 +6,16 @@
   "scripts": {
     "start": "webpack serve --mode=development --open --hot",
     "build": "webpack --mode=production",
-    "test": "echo \"Test it yourself\" && exit 1"
+    "test": "echo \"Test it yourself\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [
     "yeet"
   ],
   "author": "andre-kw",
   "license": "ISC",
+  "homepage": "https://andrewillie.com/koinr",
   "dependencies": {
     "@ethersproject/contracts": "^5.4.1",
     "@ethersproject/providers": "^5.4.5",
@@ -34,6 +37,7 @@
     "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^6.2.0",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.3.2",
     "style-loader": "^3.2.1",
     "webpack": "^5.51.1",
