@@ -29,9 +29,13 @@ module.exports = {
           {loader: 'css-loader'}
         ]
       },
+      // {
+      //   test: /\.worker\.js$/,
+      //   use: {loader: 'worker-loader'}
+      // }
       {
-        test: /\.worker\.js$/,
-        use: {loader: 'worker-loader'}
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource'
       }
     ]
   },
