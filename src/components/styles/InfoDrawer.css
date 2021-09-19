@@ -1,7 +1,8 @@
 #info-drawer {
   width: 75%;
   max-width: 22rem;
-  min-height: 25em;
+  height: 35em;
+  max-height: 70vh;
   margin: 0 auto 2em;
   padding: 1.25em;
   display: none;
@@ -10,11 +11,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transform: translateY(70vh);
+  transform: translateY(85vh);
   z-index: 10;
   background: #fff;
-  border: 3px solid #504e4e;
+  border: 1px solid #ababab;
   border-radius: 8px;
+  border-bottom-width: 5px;
 }
 
 #info-drawer[open] {
@@ -87,23 +89,21 @@
   }*/
 
 
-#info-drawer .close {
+#info-drawer .btn-close {
   position: absolute;
-  right: 1.5em;
-  top: 1.5em;
+  right: 1em;
+  top: 1em;
   appearance: none;
-  background: rgba(175, 175, 175, 0.25);
-  border: 1px solid gray;
   font-size: 0.75em;
   padding: .75em 1em;
-  border-radius: 20%;
+  /* border-radius: 20%; */
   cursor: pointer;
   transition: .15s all;
   outline: none;
 }
 
-#info-drawer .close:hover, 
-#info-drawer .close:focus {
+#info-drawer .btn-close:hover, 
+#info-drawer .btn-close:focus {
   border-color: red;
   color: red;
   background: #fff;
@@ -111,25 +111,37 @@
 
 #info-drawer > div {
   border: 1px solid #c2c2c2;
-  min-height: 100%;
   flex-grow: 1;
   border-radius: 7px;
   padding: .75em;
-  box-shadow: inset 0px 4px 12px -11px black;
 }
 
 #drawer-ctrls {
   width: 100%;
   padding: 0.75em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#drawer-ctrls p {
+  margin: 0;
+  float: right;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #0eb5f7;
+  font-family: 'Archivo';
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 
 @keyframes slide-up {
-  from { transform: translateY(70vh) }
+  from { transform: translateY(85vh) }
   to { transform: translateY(0) }
 }
 
 @keyframes slide-down {
   from { transform: translateY(0) }
-  to { transform: translateY(70vh) }
+  to { transform: translateY(85vh) }
 }

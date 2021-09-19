@@ -55,6 +55,7 @@ export default function TokenGrid(props) {
     } catch(e) {
       setLoading(false);
       handleError(e);
+      return;
     }
 
     for await (let token of await txnIterator(txs)) {
@@ -71,6 +72,7 @@ export default function TokenGrid(props) {
         decimals = await contract.decimals();
       } catch(e) {
         handleError(e);
+        // continue;
       }
       
       temp.push({...token, contract, name, symbol, balance, decimals});
