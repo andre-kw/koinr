@@ -6,4 +6,6 @@ on:
 
 jobs:
   deploy:
-    - run: npm run deploy
+    name: Deployment
+    steps:
+      - run: npm run deploy
