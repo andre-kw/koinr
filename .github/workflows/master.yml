@@ -1,5 +1,5 @@
 name: Deploy to Github Pages
-on
+on:
   push:
     branches:
       - master
