@@ -9,9 +9,10 @@ export default function TokenButton(props) {
   };
 
   React.useEffect(() => {
-    if(!props.token) return;
+    if(!props.token || !props.token.balance)
+      return;
     
-    const b = props.token.balance ? Number(props.token.balance.toBigInt() / BigInt(10 ** props.token.decimals)) : 0;
+    const b = Number(props.token.balance.toBigInt() / BigInt(10 ** props.token.decimals));
     const suffixes = {
       1000: 'K',
       1000000: 'M',

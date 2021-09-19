@@ -74,6 +74,9 @@ export default function TokenGrid(props) {
         handleError(e);
         // continue;
       }
+
+      if(!balance || isNaN(balance))
+        balance = 0;
       
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
