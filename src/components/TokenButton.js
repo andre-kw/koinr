@@ -9,6 +9,8 @@ export default function TokenButton(props) {
   };
 
   React.useEffect(() => {
+    if(!props.token) return;
+    
     const b = props.token.balance ? Number(props.token.balance.toBigInt() / BigInt(10 ** props.token.decimals)) : 0;
     const suffixes = {
       1000: 'K',
@@ -33,7 +35,7 @@ export default function TokenButton(props) {
         return setBalance(bb);
       }
     }
-  }, []);
+  }, [props.token]);
 
   return (
     <button className="token" key={props.token.address} onClick={onClick}>

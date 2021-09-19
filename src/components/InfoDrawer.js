@@ -4,6 +4,7 @@ import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
+import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import './styles/InfoDrawer.css';
@@ -11,6 +12,7 @@ import './styles/InfoDrawer.css';
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
   const eth = useWallet();
+  const handleError = useErrorHandler();
   const [token, setToken] = useState(null);
   const [checksumAddress, setChecksumAddress] = useState('');
   const dialogRef = React.useRef();
@@ -57,7 +59,8 @@ export default function InfoDrawer(props) {
       .then(b => {
         const bb = b ? Number(b.toBigInt() / BigInt(10 ** token.decimals)).toLocaleString() : '---';
         setToken({...token, computedBalance: bb});
-      });
+      })
+      .catch(handleError);
   }, [token]);
 
   return (
