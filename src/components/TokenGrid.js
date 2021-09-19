@@ -96,16 +96,12 @@ export default function TokenGrid(props) {
     };
   }, []);
 
-  const openInfoDrawer = (address) => {
-    props.setInfoDrawerAddress(address);
-  };
-
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
       <div>
         {loading && <div id="load-spinner" role="alert" aria-live="polite" aria-label="loading"></div>}
         {!loading && acc.tokens.map(token => 
-          <TokenButton key={token.address} token={token} onClick={() => openInfoDrawer(token.address)} />)}
+          <TokenButton key={token.address} token={token} onClick={() => props.setInfoDrawerAddress(token.address)} />)}
       </div>
     </section>
   );

@@ -40,7 +40,7 @@
   padding: 0.5em 0;
 }
 
-#info-drawer header > img {
+#info-drawer header .token-icon {
   margin: -3.5em 0 0.5em;
   border: 1px solid gray;
   border-radius: 50%;

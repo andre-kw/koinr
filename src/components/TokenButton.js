@@ -1,18 +1,10 @@
-import React from 'react';
-import { toChecksumAddress } from 'web3-utils';
+import React, {useState} from 'react';
+import TokenImage from './TokenImage';
 
 export default function TokenButton(props) {
-  const imgRef = React.useRef();
-  // const [imgSrc, setImgSrc] = React.useState(`https://pancakeswap.finance/images/tokens/${props.token.address}.png`);
-  const address = toChecksumAddress(props.token.address);
-  const [imgSrc, setImgSrc] = React.useState(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${address}/logo.png`);
-  const [balance, setBalance] = React.useState('');
-  const fallbackImgSrc = '/img/bnb.png';
+  const [balance, setBalance] = useState('');
 
   const onClick = (e) => {
-    imgRef.current.classList.add('clicked');
-    setTimeout(() => {imgRef.current.classList.remove('clicked')}, 500);
-
     props.onClick();
   };
 
@@ -45,13 +37,7 @@ export default function TokenButton(props) {
 
   return (
     <button className="token" key={props.token.address} onClick={onClick}>
-      <img 
-        src={imgSrc} 
-        ref={imgRef} 
-        width="73" 
-        height="73" 
-        className={imgSrc === fallbackImgSrc ? 'no-logo':''}
-        onError={e => {e.target.onerror = null; setImgSrc(fallbackImgSrc)}} />
+      <TokenImage address={props.token.address} />
 
       <div className="token-stats">
         <p><strong>{balance}</strong> {props.token.symbol || "???"}</p>

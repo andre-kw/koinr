@@ -4,6 +4,7 @@ import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
+import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import './styles/InfoDrawer.css';
 
@@ -12,7 +13,6 @@ export default function InfoDrawer(props) {
   const eth = useWallet();
   const [token, setToken] = useState(null);
   const [checksumAddress, setChecksumAddress] = useState('');
-  const [imgSrc, setImgSrc] = useState('');
   const dialogRef = React.useRef();
   const clipboard = new ClipboardJS('#btn-copy');
 
@@ -46,7 +46,6 @@ export default function InfoDrawer(props) {
       
     setToken({...t});
     setChecksumAddress(addr);
-    setImgSrc(`https://assets.trustwalletapp.com/blockchains/smartchain/assets/${addr}/logo.png`);
     document.querySelector('#bg-overlay').classList.add('show'); // i know, ew
   }, [props.tokenAddress]);
 
@@ -65,11 +64,7 @@ export default function InfoDrawer(props) {
     <dialog open={token} id="info-drawer" className={token ? 'open' : ''} ref={dialogRef}>
       {token && <>
         <header>
-          <img 
-            src={imgSrc} 
-            width="73" 
-            height="73" 
-            onError={e => {e.target.onerror = null; setImgSrc('/img/bnb.png')}} />
+          <TokenImage address={token.address} />
           <h2>{token.name || <em>unknown token</em>}</h2>
 
           {checksumAddress && 
