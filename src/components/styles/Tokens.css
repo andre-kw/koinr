@@ -28,6 +28,7 @@
 }
 
 .token img {
+  min-width: 73px;
   width: 100%;
   margin-bottom: 0.35em;
   border: 1px solid #bdbdbd;
