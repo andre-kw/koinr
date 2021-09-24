@@ -5,6 +5,6 @@ export const pullToReleaseConfig = {
   resistanceFunction: t => Math.min(1, t / 2.75),
   // distIgnore: 20,
   distThreshold: 50,
-  distReload: 60,
+  distReload: 0,
   instructionsRefreshing: ' '
 };

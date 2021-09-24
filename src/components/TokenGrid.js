@@ -100,8 +100,8 @@ export default function TokenGrid(props) {
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
       <div>
-        {loading && <div id="load-spinner" role="alert" aria-live="polite" aria-label="loading"></div>}
-        {!loading && tokens.map(token => 
+        {loading && tokens.length === 0 && <div id="load-spinner" role="alert" aria-live="polite" aria-label="loading"></div>}
+        {tokens.map(token => 
           <TokenButton key={token.address} token={token} onClick={() => props.setInfoDrawerAddress(token.address)} />)}
       </div>
     </section>

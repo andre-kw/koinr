@@ -78,9 +78,9 @@
   color: #353535;
 }
 
-#tokens.loading .token {
+/* #tokens.loading .token {
   opacity: 0;
-}
+} */
 
 @keyframes popp {
   from {
