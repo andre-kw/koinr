@@ -55,8 +55,8 @@
 
 #info-drawer .btn-close {
   position: absolute;
-  right: 1em;
-  top: 1em;
+  right: -0.75em;
+  top: -0.5em;
   appearance: none;
   font-size: 0.75em;
   padding: .75em 1em;
@@ -137,19 +137,20 @@
   position: relative;
 }
 
-#drawer-balance::after {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: -1.75em;
-  background-image: url(/public/img/coin.gif);
-  background-size: 300%;
-  background-position: center;
-  animation: rotate-clockwise 1s infinite;
-  animation-timing-function: linear;
-}
+  #drawer-balance::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: -1.75em;
+    background-image: url(/public/img/coin.gif);
+    background-size: 300%;
+    background-position: center;
+    animation: rotate-clockwise 1s infinite;
+    animation-timing-function: linear;
+    image-rendering: crisp-edges;
+  }
 
 
 @keyframes rotate-clockwise {

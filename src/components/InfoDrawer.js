@@ -21,48 +21,6 @@ function TxnItem(props) {
   );
 }
 
-function TokenData(props) {
-  const [buyTxns, setBuyTxns] = useState([]);
-  const [sellTxns, setSellTxns] = useState([]);
-
-  React.useEffect(() => {
-    const buys = props.txns.filter(txn => {
-      if(txn.to === props.address)
-        return true;
-      if(txn.args && Array.isArray(txn.args[1])) {
-        const i = txn.args[1]; // internal transactions
-
-        if(i.includes(props.address) && i[i.length - 1] === props.address)
-          return true;
-      }
-    });
-    
-    const sells = props.txns.filter(txn => {
-      if(txn.from === props.address)
-        return true;
-      if(txn.args && Array.isArray(txn.args[1])) {
-        const i = txn.args[1]; // internal transactions
-
-        if(i.includes(props.address) && i[i.length - 1] !== props.address)
-          return true;
-      }
-    });
-    
-    setBuyTxns(buys.map(txn => <TxnItem key={txn.hash} txn={txn} type="buy" />));
-    setSellTxns(sells.map(txn => <TxnItem key={txn.hash} txn={txn} type="sell" />));
-  }, [props.txns, props.address]);
-
-  return (
-    <section id="token-data">
-      <h3>transactions</h3>
-      <ul>
-        {[...buyTxns, ...sellTxns]
-          .sort((a,b) => a.timeStamp - b.timeStamp)}
-      </ul>
-    </section>
-  );
-}
-
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
   const eth = useWallet();
@@ -125,6 +83,8 @@ export default function InfoDrawer(props) {
     <dialog open={token} id="info-drawer" className={token ? 'open' : ''} ref={dialogRef}>
       {token && <>
         <header>
+          <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer" tabIndex="0">X</button>
+          
           <TokenImage address={token.address} />
           <h2>{token.name || <em>unknown token</em>}</h2>
 
@@ -143,10 +103,51 @@ export default function InfoDrawer(props) {
             </div>
           </div>
         </header>
-        <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
 
         <TokenData txns={[...acc.txns, ...acc.pancakeTxns]} address={token.address} />
       </>}
     </dialog>
+  );
+}
+
+function TokenData(props) {
+  const [buyTxns, setBuyTxns] = useState([]);
+  const [sellTxns, setSellTxns] = useState([]);
+
+  React.useEffect(() => {
+    const buys = props.txns.filter(txn => {
+      if(txn.to === props.address)
+        return true;
+      if(txn.args && Array.isArray(txn.args[1])) {
+        const i = txn.args[1]; // internal transactions
+
+        if(i.includes(props.address) && i[i.length - 1] === props.address)
+          return true;
+      }
+    });
+    
+    const sells = props.txns.filter(txn => {
+      if(txn.from === props.address)
+        return true;
+      if(txn.args && Array.isArray(txn.args[1])) {
+        const i = txn.args[1]; // internal transactions
+
+        if(i.includes(props.address) && i[i.length - 1] !== props.address)
+          return true;
+      }
+    });
+    
+    setBuyTxns(buys.map(txn => <TxnItem key={txn.hash} txn={txn} type="buy" />));
+    setSellTxns(sells.map(txn => <TxnItem key={txn.hash} txn={txn} type="sell" />));
+  }, [props.txns, props.address]);
+
+  return (
+    <section id="token-data">
+      <h3>transactions</h3>
+      <ul>
+        {[...buyTxns, ...sellTxns]
+          .sort((a,b) => a.timeStamp - b.timeStamp)}
+      </ul>
+    </section>
   );
 }

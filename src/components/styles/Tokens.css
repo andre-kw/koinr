@@ -9,6 +9,15 @@
   justify-content: center;
 }
 
+  /* #tokens > div::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  #tokens > div::-webkit-scrollbar-thumb {
+    background: red;
+  } */
+
 .token {
   min-width: 5rem;
   max-width: 5rem;
