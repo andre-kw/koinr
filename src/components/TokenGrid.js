@@ -69,6 +69,8 @@ export default function TokenGrid(props) {
         balance = await contract.balanceOf(eth.selectedAddress());
         decimals = await contract.decimals();
       } catch(e) {
+        e.data.origin = 'getTokens';
+        e.data.address = token.address;
         handleError(e);
         // continue;
       }
