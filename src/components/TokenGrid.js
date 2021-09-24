@@ -9,6 +9,7 @@ import TokenButton from './TokenButton';
 import bscscan from '../apis/bscscan';
 import abi from '../abi';
 import {pullToReleaseConfig} from '../config';
+import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
 import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
@@ -45,22 +46,18 @@ export default function TokenGrid(props) {
     };
   };
 
-  const loadTokens = async () => {
-    let txns;
+  const getTxns = async () => {
+    const txns = await bscscan.txlist(eth.selectedAddress());
+    return txns;
+  };
+
+  const getTokens = async (txns) => {
     const temp = [];
 
-    setLoading(true);
-
-    try {
-      txns = await bscscan.txlist(eth.selectedAddress());
-    } catch(e) {
-      setLoading(false);
-      handleError(e);
-      return;
-    }
-
     for await (let token of await txnIterator(txns)) {
-      if(!token || temp.findIndex(t => token.address === t.address) !== -1)
+      if(!token 
+          || temp.findIndex(t => token.address === t.address) !== -1 
+          || token.address === PancakeSwapV2RouterAddress)
         continue;
 
       let contract, name, symbol, balance, decimals;
@@ -85,18 +82,27 @@ export default function TokenGrid(props) {
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
 
-    acc.setTxns([...txns]);
-    acc.setTokens([...temp]);
-    setLoading(false);
+    return temp;
   };
 
   React.useEffect(() => {
     PullToRefresh.init({
       ...pullToReleaseConfig,
-      onRefresh: () => loadTokens()
+      onRefresh: () => getTokens()
     });
 
-    loadTokens();
+    (async () => {
+      try {
+        const txns = await getTxns();
+        const tokens = await getTokens(txns);
+        acc.setTxns([...txns]);
+        acc.setTokens([...tokens]);
+      } catch(e) {
+        handleError(e);
+      }
+
+      setLoading(false);
+    })();
 
     return function cleanup() {
       PullToRefresh.destroyAll();

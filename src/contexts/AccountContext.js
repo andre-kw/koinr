@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { sha3 } from 'web3-utils';
 import Web3EthAbi from 'web3-eth-abi';
 import useWallet from '../hooks/Wallet';
-import { abi as PancakeSwapV2Abi } from '../abis/PancakeSwapRouterV2';
-import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapRouterV2';
+import { abi as PancakeSwapV2Abi } from '../abis/PancakeSwapV2Router';
+import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
 
 const AccountContext = React.createContext({
   address: '', setAddress: () => {},
@@ -36,8 +36,6 @@ export function AccountProvider(props) {
     setAddress(window.ethereum.selectedAddress);
   }, [window.ethereum.selectedAddress]);
 
-  // window.ethabi = Web3EthAbi;
-
   React.useEffect(() => {
     const t = txns.filter(txn => txn.to === PancakeSwapV2RouterAddress.toLowerCase());
 
@@ -48,9 +46,6 @@ export function AccountProvider(props) {
       const args = fn
         .substring(fn.indexOf('(') + 1, fn.length - 1)
         .split(',');
-
-      // console.log(args)
-      // console.log(tx.input)
 
       return {...tx, args: Web3EthAbi.decodeParameters(args, tx.input.slice(10))};
     }));

@@ -9,7 +9,7 @@ import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import BscImg from '../../public/img/bscscan.png';
-import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapRouterV2';
+import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapV2Router';
 import './styles/InfoDrawer.css';
 
 function TxnItem(props) {
@@ -58,31 +58,8 @@ export default function InfoDrawer(props) {
       dialogRef.current.classList.remove('closing');
       document.querySelector('#bg-overlay').classList.remove(...['closing', 'show']);
       setToken(null);
-      // props.setInfoDrawerAddress(null);
     }, 500);
   };
-
-  // React.useEffect(() => {
-  //   return function cleanup() {
-  //     props.setInfoDrawerAddress(null);
-  //   };
-  // }, []);
-
-  // might not need this at all......
-  // const tryPancakeSwapV2Contract = async () => {
-  //   let contract;
-  //   console.log('pancakeswap LP')
-
-  //   try {
-  //     contract = new Contract(PancakeSwapV2RouterAddress, PancakeSwapV2Abi, eth.provider);
-  //   } catch(e) {
-  //     handleError(e);
-  //     return;
-  //   }
-  // };
-
-  // window.pancakeabi = PancakeSwapV2Abi;
-  // window.sha3 = sha3;
 
   React.useEffect(() => {
     if(!props.tokenAddress) {
