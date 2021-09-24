@@ -12,7 +12,7 @@ export default function useTxnIterator() {
   const iterator = async (txns) => ({
     async *[Symbol.asyncIterator]() {
       for(let i = 0; i < txns.length; i++) {
-        if(txns.isError === "1")
+        if(txns[i].isError === "1")
           yield;
 
         if(txns[i].from === eth.selectedAddress()) {
