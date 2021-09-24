@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
+import { Contract } from '@ethersproject/contracts';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import BscImg from '../../public/img/bscscan.png';
+import {abi as PancakeSwapV2Abi} from '../abis/PancakeSwapRouterV2';
+import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapRouterV2';
 import './styles/InfoDrawer.css';
 
 export default function InfoDrawer(props) {
@@ -38,6 +41,19 @@ export default function InfoDrawer(props) {
   //   };
   // }, []);
 
+  // might not need this at all......
+  const tryPancakeSwapV2Contract = async () => {
+    let contract;
+    console.log('pancakeswap LP')
+
+    try {
+      contract = new Contract(PancakeSwapV2RouterAddress, PancakeSwapV2Abi, eth.provider);
+    } catch(e) {
+      handleError(e);
+      return;
+    }
+  };
+
   React.useEffect(() => {
     if(!props.tokenAddress) {
       close();
@@ -55,13 +71,22 @@ export default function InfoDrawer(props) {
   React.useEffect(() => {
     if(!token || !props.tokenAddress || token.computedBalance)
       return;
-    
-    token.contract.balanceOf(eth.selectedAddress())
-      .then(b => {
-        const bb = b ? Number(b.toBigInt() / BigInt(10 ** token.decimals)).toLocaleString() : '---';
-        setToken({...token, computedBalance: bb});
-      })
-      .catch(handleError);
+
+    (async () => {
+      let b;
+
+      try {
+        b = await token.contract.balanceOf(eth.selectedAddress());
+      } catch(e) {
+        handleError(e);
+        
+        if(props.tokenAddress === PancakeSwapV2RouterAddress)
+          tryPancakeSwapV2Contract();
+      }
+
+      const bb = b ? Number(b.toBigInt() / BigInt(10 ** token.decimals)).toLocaleString() : '---';
+      setToken({...token, computedBalance: bb});
+    })();
   }, [token]);
 
   return (

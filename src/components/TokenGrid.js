@@ -53,6 +53,7 @@ export default function TokenGrid(props) {
 
     try {
       txs = await bscscan.txlist(eth.selectedAddress());
+      console.log(txs);
     } catch(e) {
       setLoading(false);
       handleError(e);
@@ -80,7 +81,7 @@ export default function TokenGrid(props) {
         balance = BigNumber.from(0);
 
       if(!isBigNumberish(decimals))
-        decimals = BigNumber.from(1); // TODO: this could be incorrect but also could indicate bad token
+        decimals = BigNumber.from(1); // TODO: need to know when this would actually be a thing
       
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
