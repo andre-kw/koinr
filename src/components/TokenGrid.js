@@ -10,41 +10,15 @@ import bscscan from '../apis/bscscan';
 import abi from '../abi';
 import {pullToReleaseConfig} from '../config';
 import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
+import useTxnIterator from '../hooks/TxnIterator';
 import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
   const acc = React.useContext(AccountContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
+  const txnIterator = useTxnIterator(eth);
   const [loading, setLoading] = useState(true);
-
-  const txnIterator = async (txns) => {
-    return {
-      async *[Symbol.asyncIterator]() {
-        for(let i = 0; i < txns.length; i++) {
-          if(txns.isError === "1")
-            yield;
-
-          if(txns[i].from === eth.selectedAddress()) {
-            // sending/swapping
-            let code;
-
-            try {
-              code = await eth.getCode(txns[i].to);
-            } catch(e) {
-              handleError(e);
-            }
-
-            if(code && code !== '0x')
-              yield {address: txns[i].to};
-
-          } else if(txns[i].to === eth.selectedAddress()) {
-            // TODO: receiving
-          }
-        }
-      }
-    };
-  };
 
   const getTxns = async () => {
     const txns = await bscscan.txlist(eth.selectedAddress());
@@ -56,8 +30,8 @@ export default function TokenGrid(props) {
 
     for await (let token of await txnIterator(txns)) {
       if(!token 
-          || temp.findIndex(t => token.address === t.address) !== -1 
-          || token.address === PancakeSwapV2RouterAddress)
+          || temp.findIndex(t => token.address === t.address) > -1 
+          || token.address === PancakeSwapV2RouterAddress.toLowerCase())
         continue;
 
       let contract, name, symbol, balance, decimals;
