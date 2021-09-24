@@ -29,6 +29,7 @@
     "pulltorefreshjs": "^0.1.22",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "web3-eth-abi": "^1.5.3",
     "web3-utils": "^1.5.2"
   },
   "devDependencies": {

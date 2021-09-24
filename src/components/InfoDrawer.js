@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
-import { Contract } from '@ethersproject/contracts';
+// import { Contract } from '@ethersproject/contracts';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import BscImg from '../../public/img/bscscan.png';
-import {abi as PancakeSwapV2Abi} from '../abis/PancakeSwapRouterV2';
 import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapRouterV2';
 import './styles/InfoDrawer.css';
 
@@ -27,7 +26,6 @@ function TokenData(props) {
   const [txnItems, setTxnItems] = useState([]);
 
   React.useEffect(() => {
-    console.log(props.txns);
     const arr = props.txns.filter(txn => txn.to === props.address);
     setTxnItems(arr.map(txn => <TxnItem key={txn.hash} txn={txn} />));
   }, [props.txns, props.address]);
@@ -71,17 +69,20 @@ export default function InfoDrawer(props) {
   // }, []);
 
   // might not need this at all......
-  const tryPancakeSwapV2Contract = async () => {
-    let contract;
-    console.log('pancakeswap LP')
+  // const tryPancakeSwapV2Contract = async () => {
+  //   let contract;
+  //   console.log('pancakeswap LP')
 
-    try {
-      contract = new Contract(PancakeSwapV2RouterAddress, PancakeSwapV2Abi, eth.provider);
-    } catch(e) {
-      handleError(e);
-      return;
-    }
-  };
+  //   try {
+  //     contract = new Contract(PancakeSwapV2RouterAddress, PancakeSwapV2Abi, eth.provider);
+  //   } catch(e) {
+  //     handleError(e);
+  //     return;
+  //   }
+  // };
+
+  // window.pancakeabi = PancakeSwapV2Abi;
+  // window.sha3 = sha3;
 
   React.useEffect(() => {
     if(!props.tokenAddress) {
@@ -109,8 +110,8 @@ export default function InfoDrawer(props) {
       } catch(e) {
         handleError(e);
         
-        if(props.tokenAddress === PancakeSwapV2RouterAddress)
-          tryPancakeSwapV2Contract();
+        if(props.tokenAddress.toLowerCase() === PancakeSwapV2RouterAddress.toLowerCase())
+          console.log('ahoy matey its pancakeswarp');
       }
 
       const bb = b ? Number(b.toBigInt() / BigInt(10 ** token.decimals)).toLocaleString() : '---';
