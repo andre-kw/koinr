@@ -67,8 +67,10 @@ export default function InfoDrawer(props) {
       return;
     }
 
-    const t = acc.tokens.find(t => t.address === props.tokenAddress),
-      addr = toChecksumAddress(t.address);
+    let t = [...acc.tokens, ...acc.pancakeTokens]
+      .find(tk => tk.address === props.tokenAddress);
+
+    const addr = toChecksumAddress(t.address);
       
     setToken({...t});
     setChecksumAddress(addr);

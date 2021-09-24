@@ -15,6 +15,7 @@ export default function TokenGrid(props) {
   const handleError = useErrorHandler();
   const {getTokens} = useTxnIterator();
   const [loading, setLoading] = useState(true);
+  const [tokens, setTokens] = useState([]);
 
   const getTxns = async () => {
     const txns = await bscscan.txlist(eth.selectedAddress());
@@ -49,11 +50,22 @@ export default function TokenGrid(props) {
     };
   }, []);
 
+  React.useEffect(() => {
+    const arr = [];
+
+    [...acc.tokens, ...acc.pancakeTokens].forEach(t => {
+      if(arr.indexOf(t.address) === -1)
+        arr.push(t);
+    });
+
+    setTokens(arr);
+  }, [acc.tokens, acc.pancakeTokens]);
+
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
       <div>
         {loading && <div id="load-spinner" role="alert" aria-live="polite" aria-label="loading"></div>}
-        {!loading && acc.tokens.map(token => 
+        {!loading && tokens.map(token => 
           <TokenButton key={token.address} token={token} onClick={() => props.setInfoDrawerAddress(token.address)} />)}
       </div>
     </section>
