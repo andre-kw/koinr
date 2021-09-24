@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import PullToRefresh from 'pulltorefreshjs';
+import { sha3 } from 'web3-utils';
+import Web3EthAbi from 'web3-eth-abi';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
+import useTxnIterator from '../hooks/TxnIterator';
+import usePancakeTxnIterator from '../hooks/PancakeTxnIterator';
 import TokenButton from './TokenButton';
 import bscscan from '../apis/bscscan';
 import { pullToReleaseConfig } from '../config';
-import useTxnIterator from '../hooks/TxnIterator';
+import { abi as PancakeSwapV2Abi } from '../abis/PancakeSwapV2Router';
+import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
 import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
@@ -14,6 +19,7 @@ export default function TokenGrid(props) {
   const eth = useWallet();
   const handleError = useErrorHandler();
   const {getTokens} = useTxnIterator();
+  const {getTokens: getPancakeTokens} = usePancakeTxnIterator();
   const [loading, setLoading] = useState(true);
   const [tokens, setTokens] = useState([]);
 
@@ -22,14 +28,44 @@ export default function TokenGrid(props) {
     return txns;
   };
 
+  // TODO: helper function?
+  const filterPancakeTxns = (txns) => {
+    const pancakeFnSignatures = {};
+    const prepareData = e => `${e.name}(${e.inputs.map(e => e.type)})`;
+    const encodeSelector = f => sha3(f).slice(0,10);
+
+    PancakeSwapV2Abi
+      .filter(e => e.type === "function")
+      .forEach(e => {
+        pancakeFnSignatures[encodeSelector(prepareData(e))] = prepareData(e);
+      });
+
+    const t = txns.filter(txn => txn.to === PancakeSwapV2RouterAddress.toLowerCase());
+
+    return t.map(tx => {
+      const fn = pancakeFnSignatures[tx.input.slice(0, 10)];
+      if(!fn) return;
+
+      const args = fn
+        .substring(fn.indexOf('(') + 1, fn.length - 1)
+        .split(',');
+
+      return {...tx, args: Web3EthAbi.decodeParameters(args, tx.input.slice(10))};
+    });
+  };
+
   const load = async () => {
     setLoading(true);
 
     try {
       const txns = await getTxns();
+      const pancakeTxns = filterPancakeTxns(txns);
       const tokens = await getTokens(txns);
+      const pancakeTokens = await getPancakeTokens(pancakeTxns);
       acc.setTxns([...txns]);
+      acc.setPancakeTxns([...pancakeTxns]);
       acc.setTokens([...tokens]);
+      acc.setPancakeTokens([...pancakeTokens]);
     } catch(e) {
       handleError(e);
     }
@@ -54,7 +90,7 @@ export default function TokenGrid(props) {
     const arr = [];
 
     [...acc.tokens, ...acc.pancakeTokens].forEach(t => {
-      if(arr.indexOf(t.address) === -1)
+      if(arr.findIndex(tk => tk.address.toLowerCase() === t.address.toLowerCase()) === -1)
         arr.push(t);
     });
 
