@@ -14,7 +14,7 @@ import './styles/InfoDrawer.css';
 function TxnItem(props) {
   const date = new Date(props.txn.timeStamp * 1000);
   return (
-    <li>
+    <li className={props.type === 'buy' ? 'token-txn-buy' : 'token-txn-sell'}>
       <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
       <p>{props.txn.input}</p>
     </li>
@@ -22,18 +22,42 @@ function TxnItem(props) {
 }
 
 function TokenData(props) {
-  const [txnItems, setTxnItems] = useState([]);
+  const [buyTxns, setBuyTxns] = useState([]);
+  const [sellTxns, setSellTxns] = useState([]);
 
   React.useEffect(() => {
-    const arr = props.txns.filter(txn => txn.to === props.address);
-    setTxnItems(arr.map(txn => <TxnItem key={txn.hash} txn={txn} />));
+    const buys = props.txns.filter(txn => {
+      if(txn.to === props.address)
+        return true;
+      if(txn.args && Array.isArray(txn.args[1])) {
+        const i = txn.args[1]; // internal transactions
+
+        if(i.includes(props.address) && i[i.length - 1] === props.address)
+          return true;
+      }
+    });
+    
+    const sells = props.txns.filter(txn => {
+      if(txn.from === props.address)
+        return true;
+      if(txn.args && Array.isArray(txn.args[1])) {
+        const i = txn.args[1]; // internal transactions
+
+        if(i.includes(props.address) && i[i.length - 1] !== props.address)
+          return true;
+      }
+    });
+    
+    setBuyTxns(buys.map(txn => <TxnItem key={txn.hash} txn={txn} type="buy" />));
+    setSellTxns(sells.map(txn => <TxnItem key={txn.hash} txn={txn} type="sell" />));
   }, [props.txns, props.address]);
 
   return (
     <section id="token-data">
       <h3>transactions</h3>
       <ul>
-        {txnItems}
+        {[...buyTxns, ...sellTxns]
+          .sort((a,b) => a.timeStamp - b.timeStamp)}
       </ul>
     </section>
   );
@@ -121,7 +145,7 @@ export default function InfoDrawer(props) {
         </header>
         <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
 
-        <TokenData txns={acc.txns} address={token.address} />
+        <TokenData txns={[...acc.txns, ...acc.pancakeTxns]} address={token.address} />
       </>}
     </dialog>
   );
