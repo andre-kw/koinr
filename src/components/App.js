@@ -7,6 +7,7 @@ import InfoDrawer from './InfoDrawer';
 import BackgroundOverlay from './BackgroundOverlay';
 // import BlockExplorer from './BlockExplorer';
 import './styles/App.css';
+import './styles/Buttons.css';
 
 function App() {
   // const db = React.useContext(IDBContext);

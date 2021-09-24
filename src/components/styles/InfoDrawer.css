@@ -53,42 +53,6 @@
   font-size: 1.25rem;
 }
 
-#info-drawer #btn-copy {
-  color: gray;
-  font-size: 0.75rem;
-  appearance: none;
-  border: 0;
-  background: none;
-  position: relative;
-  font-size: 0.7rem;
-}
-
-  #info-drawer #btn-copy:hover,
-  #info-drawer #btn-copy:focus {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  /*#info-drawer #btn-copy::after {
-    width: 3em;
-    margin: 0 auto;
-    padding: .25em .5em;
-    display: none;
-    content: 'copy';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 1em;
-    background-color: gray;
-    color: gray;
-    border-radius: 20%;
-  }
-
-  #info-drawer #btn-copy:hover::after {
-    display: block;
-  }*/
-
-
 #info-drawer .btn-close {
   position: absolute;
   right: 1em;
@@ -165,6 +129,27 @@
   background-color: #0e96f7;
   padding: 3px 5px;
   border-radius: 5px;
+  position: relative;
+}
+
+#drawer-balance::after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: -1.75em;
+  background-image: url(/public/img/coin.gif);
+  background-size: 300%;
+  background-position: center;
+  animation: rotate-clockwise 1s infinite;
+  animation-timing-function: linear;
+}
+
+
+@keyframes rotate-clockwise {
+  from { transform: rotate(0); }
+  to { transform: rotate(-360deg); }
 }
 
 

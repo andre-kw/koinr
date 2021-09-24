@@ -8,7 +8,6 @@ import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
-import BscImg from '../../public/img/bscscan.png';
 import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapV2Router';
 import './styles/InfoDrawer.css';
 
@@ -112,7 +111,8 @@ export default function InfoDrawer(props) {
 
           <div id="drawer-ctrls">
             <div>
-              <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank"><img src={BscImg} className="icon" /> BscScan</a>
+              <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank" aria-label={`${token.name} on BSC scan`}></a>
+              <a href={`https://poocoin.app/tokens/${token.address}`} className="btn btn-poo" target="_blank" aria-label={`${token.name} on PooCoin`}></a>
             </div>
             <div id="drawer-balance">
               <p>{token && token.computedBalance ? token.computedBalance : '---'}</p>

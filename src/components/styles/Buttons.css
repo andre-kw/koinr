@@ -1,0 +1,86 @@
+#connect {
+  display: block;
+  margin: 0 auto;
+  background-color: gold;
+}
+
+.btn {
+  padding: 6px 9px;
+  font-size: 11px;
+  margin: 5px 10px 5px 0;
+  appearance: none;
+  position: relative;
+  border: 1px solid gray;
+  color: #363636;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: .25s all;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+  .btn:hover, .btn:focus {
+    background-color: #d4d4d4;
+    border-color: #e4e4e4;
+  }
+
+    .btn-bsc {
+      color: #3e65b3;
+      border-color: #3e65b3;
+      padding-left: 2em;
+      background-image: url(/public/img/bscscan.png);
+      background-repeat: no-repeat;
+      background-size: 47%;
+      background-position: center center;
+    }
+
+    .btn-poo {
+      color: #795537;
+      border-color: #795537;
+      padding-left: 2em;
+      background-image: url(/public/img/poocoin.png);
+      background-repeat: no-repeat;
+      background-size: 47%;
+      background-position: center center;
+    }
+
+
+#btn-copy {
+  color: gray;
+  font-size: 0.75rem;
+  appearance: none;
+  border: 0;
+  background: none;
+  position: relative;
+  font-size: 0.7rem;
+}
+
+  #btn-copy:hover,
+  #btn-copy:focus {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #btn-copy:active {
+    color: darkblue;
+  }
+
+  /*#info-drawer #btn-copy::after {
+    width: 3em;
+    margin: 0 auto;
+    padding: .25em .5em;
+    display: none;
+    content: 'copy';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1em;
+    background-color: gray;
+    color: gray;
+    border-radius: 20%;
+  }
+
+  #info-drawer #btn-copy:hover::after {
+    display: block;
+  }*/

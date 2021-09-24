@@ -41,40 +41,6 @@ body {
     /* text-shadow: 5px 5px 0px #bbbbbb; */
 }
 
-.btn {
-  padding: 6px 9px;
-  font-size: 11px;
-  margin: 5px 10px 5px 0;
-  appearance: none;
-  border: 1px solid gray;
-  color: #363636;
-  border-radius: 5px;
-  background: #ececec;
-  cursor: pointer;
-  transition: .25s all;
-  font-size: 0.7rem;
-  text-decoration: none;
-}
-
-.btn:hover, .btn:focus {
-  background: #d4d4d4;
-  border-color: #e4e4e4;
-}
-
-.btn > svg {
-  margin-right: 4px;
-}
-
-.btn > img.icon {
-  max-height: 13px;
-  display: inline-block;
-  margin-right: 4px;
-  /* filter: grayscale(1); */
-  margin-bottom: -3px;
-}
-
-.btn-bsc { color: navy }
-
 #load-spinner {
   width: 7em;
   height: 10em;
