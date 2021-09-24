@@ -109,12 +109,38 @@
   background: #fff;
 }
 
-#info-drawer > div {
+#token-data {
   border: 1px solid #c2c2c2;
   flex-grow: 1;
   border-radius: 7px;
   padding: .75em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-size: 0.75rem;
 }
+
+  #token-data h3 {
+    margin: .5em 0;
+    padding: 0.25em;
+    font-style: italic;
+    color: gray;
+  }
+
+  #token-data ul {
+    padding: 0;
+  }
+
+  #token-data ul > li {
+    padding: 0.25em;
+    margin-bottom: 0.5em;
+    list-style-type: none;
+    word-break: break-all;
+  }
+
+    #token-data ul > li h4,
+    #token-data ul > li p {
+      margin: 0 0 0.25em;
+    }
 
 #drawer-ctrls {
   width: 100%;
