@@ -3,7 +3,7 @@ import useWallet from '../hooks/Wallet';
 
 const AccountContext = React.createContext({
   address: '', setAddress: () => {},
-  txs: {}, setTxs: () => {},
+  txns: {}, setTxns: () => {},
   tokens: [], setTokens: () => {},
 });
 
@@ -12,7 +12,7 @@ export default AccountContext;
 export function AccountProvider(props) {
   const eth = useWallet();
   const [address, setAddress] = useState('');
-  const [txs, setTxs] = useState([]);
+  const [txns, setTxns] = useState([]);
   const [tokens, setTokens] = useState([]);
 
   // React.useEffect(() => {
@@ -27,7 +27,7 @@ export function AccountProvider(props) {
 
   const value = {
     address, setAddress,
-    txs, setTxs,
+    txns, setTxns,
     tokens, setTokens,
   };
 

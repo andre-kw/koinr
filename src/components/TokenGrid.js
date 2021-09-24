@@ -17,27 +17,27 @@ export default function TokenGrid(props) {
   const handleError = useErrorHandler();
   const [loading, setLoading] = useState(true);
 
-  const txnIterator = async (txs) => {
+  const txnIterator = async (txns) => {
     return {
       async *[Symbol.asyncIterator]() {
-        for(let i = 0; i < txs.length; i++) {
-          if(txs.txreceipt_status !== "1")
+        for(let i = 0; i < txns.length; i++) {
+          if(txns.isError === "1")
             yield;
 
-          if(txs[i].from === eth.selectedAddress()) {
+          if(txns[i].from === eth.selectedAddress()) {
             // sending/swapping
             let code;
 
             try {
-              code = await eth.getCode(txs[i].to);
+              code = await eth.getCode(txns[i].to);
             } catch(e) {
               handleError(e);
             }
 
             if(code && code !== '0x')
-              yield {address: txs[i].to};
+              yield {address: txns[i].to};
 
-          } else if(txs[i].to === eth.selectedAddress()) {
+          } else if(txns[i].to === eth.selectedAddress()) {
             // TODO: receiving
           }
         }
@@ -46,20 +46,20 @@ export default function TokenGrid(props) {
   };
 
   const loadTokens = async () => {
-    let txs;
+    let txns;
     const temp = [];
 
     setLoading(true);
 
     try {
-      txs = await bscscan.txlist(eth.selectedAddress());
+      txns = await bscscan.txlist(eth.selectedAddress());
     } catch(e) {
       setLoading(false);
       handleError(e);
       return;
     }
 
-    for await (let token of await txnIterator(txs)) {
+    for await (let token of await txnIterator(txns)) {
       if(!token || temp.findIndex(t => token.address === t.address) !== -1)
         continue;
 
@@ -85,7 +85,7 @@ export default function TokenGrid(props) {
       temp.push({...token, contract, name, symbol, balance, decimals});
     }
 
-    acc.setTxs([...txs]);
+    acc.setTxns([...txns]);
     acc.setTokens([...temp]);
     setLoading(false);
   };
