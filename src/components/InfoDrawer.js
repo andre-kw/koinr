@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClipboardJS from 'clipboard';
-import { toChecksumAddress } from 'web3-utils';
+import { toChecksumAddress, toAscii } from 'web3-utils';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
@@ -9,6 +9,35 @@ import TokenImage from './TokenImage';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import BscImg from '../../public/img/bscscan.png';
 import './styles/InfoDrawer.css';
+
+function TxnItem(props) {
+  const date = new Date(props.txn.timeStamp * 1000);
+  return (
+    <li>
+      <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
+      <p>{props.txn.input}</p>
+    </li>
+  );
+}
+
+function TokenData(props) {
+  const [txnItems, setTxnItems] = useState([]);
+
+  React.useEffect(() => {
+    console.log(props.txns);
+    const arr = props.txns.filter(txn => txn.to === props.address);
+    setTxnItems(arr.map(txn => <TxnItem key={txn.hash} txn={txn} />));
+  }, [props.txns, props.address]);
+
+  return (
+    <section id="token-data">
+      <h3>transactions</h3>
+      <ul>
+        {txnItems}
+      </ul>
+    </section>
+  );
+}
 
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
@@ -87,9 +116,7 @@ export default function InfoDrawer(props) {
         </header>
         <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer">X</button>
 
-        <div>
-          <p>a fine choice</p>
-        </div>
+        <TokenData txns={acc.txns} address={token.address} />
       </>}
     </dialog>
   );
