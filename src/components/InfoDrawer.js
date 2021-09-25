@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowAltCircleRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
+// import Web3EthAbi from 'web3-eth-abi';
 // import { Contract } from '@ethersproject/contracts';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapV2Router';
+import PancakeSwapLogo from '../../public/img/pancakeswap.png';
 import './styles/InfoDrawer.css';
-
-function TxnItem(props) {
-  const date = new Date(props.txn.timeStamp * 1000);
-  return (
-    <li className={props.type === 'buy' ? 'token-txn-buy' : 'token-txn-sell'}>
-      <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
-      <p>{props.txn.input}</p>
-    </li>
-  );
-}
 
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
@@ -139,6 +131,8 @@ function TokenData(props) {
     
     setBuyTxns(buys.map(txn => <TxnItem key={txn.hash} txn={txn} type="buy" />));
     setSellTxns(sells.map(txn => <TxnItem key={txn.hash} txn={txn} type="sell" />));
+
+    console.log(buys);
   }, [props.txns, props.address]);
 
   return (
@@ -149,5 +143,30 @@ function TokenData(props) {
           .sort((a,b) => a.timeStamp - b.timeStamp)}
       </ul>
     </section>
+  );
+}
+
+function TxnItem(props) {
+  const date = new Date(props.txn.timeStamp * 1000);
+  const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
+  let logo;
+  
+  if(isPancakeV2)
+    logo = <img src={PancakeSwapLogo} className="logo pancake" alt="Transaction made with PancakeSwap V2" />;
+  else
+    logo = <TokenImage address={props.txn.to} logo />;
+
+  return (
+    <li className={'token-txn ' + (props.type === 'buy' ? 'token-txn-buy' : 'token-txn-sell')}>
+      <header>
+        <div>
+          <FontAwesomeIcon icon={faArrowAltCircleRight} />
+          {logo}
+        </div>
+        <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
+      </header>
+      <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(10)}...</a>
+      <p><strong>{props.txn.value / 1000000000000000000} BNB</strong></p>
+    </li>
   );
 }

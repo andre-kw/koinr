@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PullToRefresh from 'pulltorefreshjs';
-import { sha3 } from 'web3-utils';
 import Web3EthAbi from 'web3-eth-abi';
 import AccountContext from 'contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
@@ -10,8 +9,8 @@ import usePancakeTxnIterator from '../hooks/PancakeTxnIterator';
 import TokenButton from './TokenButton';
 import bscscan from '../apis/bscscan';
 import { pullToReleaseConfig } from '../config';
-import { abi as PancakeSwapV2Abi } from '../abis/PancakeSwapV2Router';
 import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
+import { fnSignatures as PancakeSwapV2FnSignatures } from '../abis/PancakeSwapV2Router';
 import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
@@ -30,20 +29,11 @@ export default function TokenGrid(props) {
 
   // TODO: helper function?
   const getPancakeV2Txns = (txns) => {
-    const pancakeFnSignatures = {};
-    const prepareData = e => `${e.name}(${e.inputs.map(e => e.type)})`;
-    const encodeSelector = f => sha3(f).slice(0,10);
-
-    PancakeSwapV2Abi
-      .filter(e => e.type === "function")
-      .forEach(e => {
-        pancakeFnSignatures[encodeSelector(prepareData(e))] = prepareData(e);
-      });
-
+    const fnSigs = PancakeSwapV2FnSignatures();
     const t = txns.filter(txn => txn.to === PancakeSwapV2RouterAddress.toLowerCase());
 
     return t.map(tx => {
-      const fn = pancakeFnSignatures[tx.input.slice(0, 10)];
+      const fn = fnSigs[tx.input.slice(0, 10)];
       if(!fn) return;
 
       const args = fn

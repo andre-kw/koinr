@@ -1,3 +1,5 @@
+import { sha3 } from 'web3-utils';
+
 export const abi = [
   {
     "inputs": [
@@ -973,3 +975,16 @@ export const abi = [
 ];
   
 export const router = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
+
+export function fnSignatures() {
+  const fnSignatures = {};
+  const prepareData = e => `${e.name}(${e.inputs.map(e => e.type)})`;
+  const encodeSelector = f => sha3(f).slice(0,10);
+
+  abi.filter(e => e.type === "function")
+    .forEach(e => {
+      fnSignatures[encodeSelector(prepareData(e))] = prepareData(e);
+    });
+
+  return fnSignatures;
+}

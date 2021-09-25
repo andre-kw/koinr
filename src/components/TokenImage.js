@@ -16,9 +16,10 @@ export default function TokenImage(props) {
     const address = toChecksumAddress(props.address);
     const myImg = new Image();
     myImg.src = `https://assets.trustwalletapp.com/blockchains/smartchain/assets/${address}/logo.png`;
-    myImg.width = '73';
-    myImg.height = '73';
+    myImg.width = props.logo ? '24' : '73';
+    myImg.height = props.logo ? '24' : '73';
     myImg.classList.add('token-icon');
+    props.logo && myImg.classList.add('small');
     myImg.onerror = e => {e.target.onerror = null; setUseFallback(true)};
     setImg(myImg);
     imgRef.current.appendChild(myImg);
