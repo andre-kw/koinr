@@ -121,9 +121,9 @@
   flex-direction: column;
 }
 
-  .token-txn:nth-child(even) {
-    /* background-color: red; */
-  }
+  /* .token-txn:nth-child(even) {
+    background-color: red;
+  } */
 
   .token-txn > header,
   .token-txn > footer {

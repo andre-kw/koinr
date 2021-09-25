@@ -61,10 +61,6 @@
   transform: translateY(-7px);
 }
 
-.token img.no-logo {
-  /* filter: sepia(1); */
-}
-
 .token-stats {
   width: 100%;
   padding-top: 0.25em;
