@@ -120,6 +120,10 @@
   flex-direction: column;
 }
 
+  .token-txn:nth-child(even) {
+    /* background-color: red; */
+  }
+
   .token-txn > header {
     display: flex;
     justify-content: space-between;
@@ -132,11 +136,24 @@
   }
 
   .token-txn h4 {
-    font-weight: normal;
+    /* font-weight: normal; */
   }
 
   .token-txn a {
     margin-bottom: 0.5em;
+    color: inherit;
+    font-style: italic;
+  }
+
+  .token-txn-bnb {
+    text-align: right;
+  }
+
+  .token-txn-bnb strong {
+    background-color: green;
+    color: #fff;
+    padding: 0.25em 0.35em;
+    border-radius: 6px;
   }
 
   .token-txn .logo {

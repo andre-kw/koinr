@@ -165,8 +165,8 @@ function TxnItem(props) {
         </div>
         <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
       </header>
-      <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(10)}...</a>
-      <p><strong>{props.txn.value / 1000000000000000000} BNB</strong></p>
+      <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
+      <p className="token-txn-bnb"><strong>{props.txn.value / 1000000000000000000} BNB</strong></p>
     </li>
   );
 }
