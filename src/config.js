@@ -6,5 +6,5 @@ export const pullToReleaseConfig = {
   // distIgnore: 20,
   distThreshold: 50,
   distReload: 0,
-  instructionsRefreshing: ' '
+  instructionsRefreshing: 'Fetching tokens'
 };
