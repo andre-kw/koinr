@@ -102,6 +102,7 @@ export default function InfoDrawer(props) {
   );
 }
 
+
 function TokenData(props) {
   const [buyTxns, setBuyTxns] = useState([]);
   const [sellTxns, setSellTxns] = useState([]);
@@ -140,11 +141,12 @@ function TokenData(props) {
       <h3>transactions</h3>
       <ul>
         {[...buyTxns, ...sellTxns]
-          .sort((a,b) => a.timeStamp - b.timeStamp)}
+          .sort((a,b) => b.props.txn.timeStamp - a.props.txn.timeStamp)}
       </ul>
     </section>
   );
 }
+
 
 function TxnItem(props) {
   const date = new Date(props.txn.timeStamp * 1000);
@@ -165,8 +167,12 @@ function TxnItem(props) {
         </div>
         <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
       </header>
-      <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
-      <p className="token-txn-bnb"><strong>{props.txn.value / 1000000000000000000} BNB</strong></p>
+      <footer>
+        <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
+        <p className="token-txn-bnb">
+          <strong>{String(props.txn.value / 1000000000000000000).slice(0, 8)} BNB</strong>
+        </p>
+      </footer>
     </li>
   );
 }

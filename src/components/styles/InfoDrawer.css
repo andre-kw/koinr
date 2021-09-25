@@ -92,11 +92,12 @@
 }
 
   #token-data h3 {
-    margin: .5em 0;
+    margin: 0 0 0.25em 0;
     padding: 0 0 0.5em;
-    font-style: italic;
-    color: gray;
+    color: #7b7b7b;
     border-bottom: 1px solid #cccccc;
+    font-variant: small-caps;
+    font-size: 1.2em;
   }
 
   #token-data ul {
@@ -124,7 +125,8 @@
     /* background-color: red; */
   }
 
-  .token-txn > header {
+  .token-txn > header,
+  .token-txn > footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -140,7 +142,7 @@
   }
 
   .token-txn a {
-    margin-bottom: 0.5em;
+    margin: 0.25em 0 0 0;
     color: inherit;
     font-style: italic;
   }
@@ -168,7 +170,7 @@
   }
 
   .token-txn-buy {
-    color: green;
+    color: #525252;
   }
 
 #drawer-ctrls {
