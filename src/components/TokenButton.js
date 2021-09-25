@@ -25,10 +25,10 @@ export default function TokenButton(props) {
         return setBalance(0);
 
       if(b >= i && b < i * 1000) {
-        let bb;
+        let bb = String(b / i);
 
         if(suffixes[i]) {
-          bb = (b / i).toPrecision(4) + suffixes[i];
+          bb = bb.slice(0, bb.indexOf('.') + 3) + suffixes[i];
         } else {
           bb = b / i;
         }
