@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
-// import Web3EthAbi from 'web3-eth-abi';
-// import { Contract } from '@ethersproject/contracts';
+import { DateTime } from 'luxon';
 import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
@@ -149,7 +148,8 @@ function TokenData(props) {
 
 
 function TxnItem(props) {
-  const date = new Date(props.txn.timeStamp * 1000);
+  // const date = new Date(props.txn.timeStamp * 1000);
+  const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_SHORT);
   const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
   let logo;
   
@@ -165,7 +165,7 @@ function TxnItem(props) {
           <FontAwesomeIcon icon={faArrowAltCircleRight} />
           {logo}
         </div>
-        <h4>{date.getMonth()}/{date.getDate()}/{date.getFullYear()} - {date.getHours()}:{date.getMinutes()}</h4>
+        <h4>{formattedDate}</h4>
       </header>
       <footer>
         <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
