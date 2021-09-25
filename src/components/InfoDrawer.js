@@ -8,6 +8,7 @@ import AccountContext from '../contexts/AccountContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
+import {router as PancakeSwapV1RouterAddress} from '../abis/PancakeSwapV1Router';
 import {router as PancakeSwapV2RouterAddress} from '../abis/PancakeSwapV2Router';
 import PancakeSwapLogo from '../../public/img/pancakeswap.png';
 import './styles/InfoDrawer.css';
@@ -95,7 +96,7 @@ export default function InfoDrawer(props) {
           </div>
         </header>
 
-        <TokenData txns={[...acc.txns, ...acc.pancakeV2Txns]} address={token.address} />
+        <TokenData txns={[...acc.txns, ...acc.pancakeV1Txns, ...acc.pancakeV2Txns]} address={token.address} />
       </>}
     </dialog>
   );
@@ -131,8 +132,6 @@ function TokenData(props) {
     
     setBuyTxns(buys.map(txn => <TxnItem key={txn.hash} txn={txn} type="buy" />));
     setSellTxns(sells.map(txn => <TxnItem key={txn.hash} txn={txn} type="sell" />));
-
-    console.log(buys);
   }, [props.txns, props.address]);
 
   return (
@@ -150,10 +149,11 @@ function TokenData(props) {
 function TxnItem(props) {
   // const date = new Date(props.txn.timeStamp * 1000);
   const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_SHORT);
+  const isPancakeV1 = props.txn.to === PancakeSwapV1RouterAddress.toLowerCase();
   const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
   let logo, fn = '';
   
-  if(isPancakeV2)
+  if(isPancakeV1 || isPancakeV2)
     logo = <img src={PancakeSwapLogo} className="logo pancake" alt="Transaction made with PancakeSwap V2" />;
   else
     logo = <TokenImage address={props.txn.to} logo />;

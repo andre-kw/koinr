@@ -1,5 +1,6 @@
 import { Contract } from '@ethersproject/contracts';
 import { BigNumber,isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
+import { router as PancakeSwapV1RouterAddress } from '../abis/PancakeSwapV1Router';
 import { router as PancakeSwapV2RouterAddress } from '../abis/PancakeSwapV2Router';
 import useWallet from './Wallet';
 import useErrorHandler from './ErrorHandler';
@@ -41,6 +42,7 @@ export default function useTxnIterator() {
     for await (let token of await iterator(txns)) {
       if(!token 
           || temp.findIndex(t => token.address === t.address) > -1 
+          || token.address === PancakeSwapV1RouterAddress.toLowerCase() 
           || token.address === PancakeSwapV2RouterAddress.toLowerCase())
         continue;
 
