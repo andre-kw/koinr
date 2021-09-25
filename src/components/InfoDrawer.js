@@ -48,7 +48,7 @@ export default function InfoDrawer(props) {
       return;
     }
 
-    let t = [...acc.tokens, ...acc.pancakeTokens]
+    let t = [...acc.tokens, ...acc.pancakeV2Tokens]
       .find(tk => tk.address === props.tokenAddress);
 
     const addr = toChecksumAddress(t.address);
@@ -104,7 +104,7 @@ export default function InfoDrawer(props) {
           </div>
         </header>
 
-        <TokenData txns={[...acc.txns, ...acc.pancakeTxns]} address={token.address} />
+        <TokenData txns={[...acc.txns, ...acc.pancakeV2Txns]} address={token.address} />
       </>}
     </dialog>
   );

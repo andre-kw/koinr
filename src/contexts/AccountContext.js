@@ -1,48 +1,38 @@
 import React, { useState } from 'react';
-// import useWallet from '../hooks/Wallet';
 
 const AccountContext = React.createContext({
   address: '', setAddress: () => {},
   txns: {}, setTxns: () => {},
-  pancakeTxns: {}, setPancakeTxns: () => {},
+  pancakeV1Txns: {}, setPancakeV1Txns: () => {},
+  pancakeV2Txns: {}, setPancakeV2Txns: () => {},
   tokens: [], setTokens: () => {},
-  pancakeTokens: [], setPancakeTokens: () => {},
+  pancakeV1Tokens: [], setPancakeV1Tokens: () => {},
+  pancakeV2Tokens: [], setPancakeV2Tokens: () => {},
 });
 
 export default AccountContext;
 
 export function AccountProvider(props) {
-  // const eth = useWallet();
   const [address, setAddress] = useState('');
   const [txns, setTxns] = useState([]);
-  const [pancakeTxns, setPancakeTxns] = useState([]);
+  const [pancakeV1Txns, setPancakeV1Txns] = useState([]);
+  const [pancakeV2Txns, setPancakeV2Txns] = useState([]);
   const [tokens, setTokens] = useState([]);
-  const [pancakeTokens, setPancakeTokens] = useState([]);
+  const [pancakeV1Tokens, setPancakeV1Tokens] = useState([]);
+  const [pancakeV2Tokens, setPancakeV2Tokens] = useState([]);
 
   React.useEffect(() => {
     setAddress(window.ethereum.selectedAddress);
   }, [window.ethereum.selectedAddress]);
 
-  // React.useEffect(() => {
-    
-  // }, [txns]);
-
-  React.useEffect(() => {
-    if(pancakeTxns.length === 0)
-      return;
-
-    console.log('pancake txns:', pancakeTxns);
-
-    // getPancakeTokens(pancakeTxns)
-    //   .then(tokens => setPancakeTokens([...tokens]));
-  }, [pancakeTxns]);
-
   const value = {
     address, setAddress,
     txns, setTxns,
-    pancakeTxns, setPancakeTxns,
+    pancakeV1Txns, setPancakeV1Txns,
+    pancakeV2Txns, setPancakeV2Txns,
     tokens, setTokens,
-    pancakeTokens, setPancakeTokens,
+    pancakeV1Tokens, setPancakeV1Tokens,
+    pancakeV2Tokens, setPancakeV2Tokens,
   };
 
   return (

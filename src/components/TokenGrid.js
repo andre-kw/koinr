@@ -19,7 +19,7 @@ export default function TokenGrid(props) {
   const eth = useWallet();
   const handleError = useErrorHandler();
   const {getTokens} = useTxnIterator();
-  const {getTokens: getPancakeTokens} = usePancakeTxnIterator();
+  const {getTokens: getPancakeV2Tokens} = usePancakeTxnIterator();
   const [loading, setLoading] = useState(true);
   const [tokens, setTokens] = useState([]);
 
@@ -29,7 +29,7 @@ export default function TokenGrid(props) {
   };
 
   // TODO: helper function?
-  const filterPancakeTxns = (txns) => {
+  const getPancakeV2Txns = (txns) => {
     const pancakeFnSignatures = {};
     const prepareData = e => `${e.name}(${e.inputs.map(e => e.type)})`;
     const encodeSelector = f => sha3(f).slice(0,10);
@@ -59,13 +59,13 @@ export default function TokenGrid(props) {
 
     try {
       const txns = await getTxns();
-      const pancakeTxns = filterPancakeTxns(txns);
+      const pancakeV2Txns = getPancakeV2Txns(txns);
       const tokens = await getTokens(txns);
-      const pancakeTokens = await getPancakeTokens(pancakeTxns);
+      const pancakeV2Tokens = await getPancakeV2Tokens(pancakeV2Txns);
       acc.setTxns([...txns]);
-      acc.setPancakeTxns([...pancakeTxns]);
+      acc.setPancakeV2Txns([...pancakeV2Txns]);
       acc.setTokens([...tokens]);
-      acc.setPancakeTokens([...pancakeTokens]);
+      acc.setPancakeV2Tokens([...pancakeV2Tokens]);
     } catch(e) {
       handleError(e);
     }
@@ -89,13 +89,13 @@ export default function TokenGrid(props) {
   React.useEffect(() => {
     const arr = [];
 
-    [...acc.tokens, ...acc.pancakeTokens].forEach(t => {
+    [...acc.tokens, ...acc.pancakeV2Tokens].forEach(t => {
       if(arr.findIndex(tk => tk.address.toLowerCase() === t.address.toLowerCase()) === -1)
         arr.push(t);
     });
 
     setTokens(arr);
-  }, [acc.tokens, acc.pancakeTokens]);
+  }, [acc.tokens, acc.pancakeV2Tokens]);
 
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>
