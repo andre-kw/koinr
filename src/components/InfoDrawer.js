@@ -151,12 +151,17 @@ function TxnItem(props) {
   // const date = new Date(props.txn.timeStamp * 1000);
   const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_SHORT);
   const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
-  let logo;
+  let logo, fn;
   
   if(isPancakeV2)
     logo = <img src={PancakeSwapLogo} className="logo pancake" alt="Transaction made with PancakeSwap V2" />;
   else
     logo = <TokenImage address={props.txn.to} logo />;
+
+  if(props.txn.extraData['fn'].includes('swap'))
+    fn = 'swap';
+  else if(props.txn.extraData['fn'].includes('approve'))
+    fn = 'approve';
 
   return (
     <li className={'token-txn ' + (props.type === 'buy' ? 'token-txn-buy' : 'token-txn-sell')}>
@@ -169,8 +174,9 @@ function TxnItem(props) {
       </header>
       <footer>
         <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
-        <p className="token-txn-bnb">
-          <strong>{String(props.txn.value / 1000000000000000000).slice(0, 8)} BNB</strong>
+        <p className={`token-txn-status token-txn-${fn}`}>
+          {fn === 'swap' && <strong>{String(props.txn.value / 1000000000000000000).slice(0, 8)} BNB</strong>}
+          {fn === 'approve' && <strong>Approve</strong>}
         </p>
       </footer>
     </li>

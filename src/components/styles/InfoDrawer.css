@@ -147,16 +147,18 @@
     font-style: italic;
   }
 
-  .token-txn-bnb {
+  .token-txn-status {
     text-align: right;
   }
 
-  .token-txn-bnb strong {
-    background-color: green;
+  .token-txn-status strong {
     color: #fff;
     padding: 0.25em 0.35em;
     border-radius: 6px;
   }
+
+  .token-txn-swap strong { background-color: #0f97f7 }
+  .token-txn-approve strong { background-color: green }
 
   .token-txn .logo {
     width: 14px;
