@@ -110,8 +110,8 @@ function TokenData(props) {
     const buys = props.txns.filter(txn => {
       if(txn.to === props.address)
         return true;
-      if(txn.args && Array.isArray(txn.args[1])) {
-        const i = txn.args[1]; // internal transactions
+      if(txn.inputData && Array.isArray(txn.inputData[1])) {
+        const i = txn.inputData[1]; // internal transactions
 
         if(i.includes(props.address) && i[i.length - 1] === props.address)
           return true;
@@ -121,8 +121,8 @@ function TokenData(props) {
     const sells = props.txns.filter(txn => {
       if(txn.from === props.address)
         return true;
-      if(txn.args && Array.isArray(txn.args[1])) {
-        const i = txn.args[1]; // internal transactions
+      if(txn.inputData && Array.isArray(txn.inputData[1])) {
+        const i = txn.inputData[1]; // internal transactions
 
         if(i.includes(props.address) && i[i.length - 1] !== props.address)
           return true;
@@ -151,17 +151,19 @@ function TxnItem(props) {
   // const date = new Date(props.txn.timeStamp * 1000);
   const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_SHORT);
   const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
-  let logo, fn;
+  let logo, fn = '';
   
   if(isPancakeV2)
     logo = <img src={PancakeSwapLogo} className="logo pancake" alt="Transaction made with PancakeSwap V2" />;
   else
     logo = <TokenImage address={props.txn.to} logo />;
 
-  if(props.txn.extraData['fn'].includes('swap'))
-    fn = 'swap';
-  else if(props.txn.extraData['fn'].includes('approve'))
-    fn = 'approve';
+  if(props.txn.extraData) {
+    if(props.txn.extraData['fn'].includes('swap'))
+      fn = 'swap';
+    else if(props.txn.extraData['fn'].includes('approve'))
+      fn = 'approve';
+  }
 
   return (
     <li className={'token-txn ' + (props.type === 'buy' ? 'token-txn-buy' : 'token-txn-sell')}>
@@ -174,7 +176,7 @@ function TxnItem(props) {
       </header>
       <footer>
         <a href={`https://bscscan.com/tx/${props.txn.hash}`} target="_blank">{props.txn.hash.slice(0, 20)}...</a>
-        <p className={`token-txn-status token-txn-${fn}`}>
+        <p className={'token-txn-status' + (fn ? ` token-txn-${fn}` : '')}>
           {fn === 'swap' && <strong>{String(props.txn.value / 1000000000000000000).slice(0, 8)} BNB</strong>}
           {fn === 'approve' && <strong>Approve</strong>}
         </p>

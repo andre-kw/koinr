@@ -33,7 +33,7 @@ export default function usePancakeTxnIterator() {
         //   // TODO: receiving
         // }
 
-        const arr = txns[i].args[1];
+        const arr = txns[i].inputData[1];
 
         // buy
         if(Array.isArray(arr) && arr[0] === WBNB) {

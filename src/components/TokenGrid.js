@@ -46,23 +46,25 @@ export default function TokenGrid(props) {
         .map(tx => {
           const fn = bep20Sigs[tx.input.slice(0, 10)];
           const extraData = {fn};
-          const args = fn
+          const inputData = fn
             .substring(fn.indexOf('(') + 1, fn.length - 1)
             .split(',');
     
-          return {...tx, args: Web3EthAbi.decodeParameters(args, tx.input.slice(10)), extraData};
+          return {...tx, inputData: Web3EthAbi.decodeParameters(inputData, tx.input.slice(10)), extraData};
         }),
 
       pancakeV2Txns: txns.filter(txn => txn.to === PancakeSwapV2RouterAddress.toLowerCase())
         .map(tx => {
           const fn = pancakeV2Sigs[tx.input.slice(0, 10)];
           const extraData = {fn};
-          const args = fn
+          const inputData = fn
             .substring(fn.indexOf('(') + 1, fn.length - 1)
             .split(',');
     
-          return {...tx, args: Web3EthAbi.decodeParameters(args, tx.input.slice(10)), extraData};
-        })
+          return {...tx, inputData: Web3EthAbi.decodeParameters(inputData, tx.input.slice(10)), extraData};
+        }),
+
+      unknownTxns: txns.filter(txn => !bep20Sigs[txn.input.slice(0, 10)])
     }
   };
 
@@ -71,10 +73,10 @@ export default function TokenGrid(props) {
 
     try {
       const txns = await getTxns();
-      const {bep20Txns, pancakeV2Txns} = serializeTxns(txns);
-      const tokens = await getTokens(bep20Txns);
+      const {bep20Txns, pancakeV2Txns, unknownTxns} = serializeTxns(txns);
+      const tokens = await getTokens([...bep20Txns, ...unknownTxns]);
       const pancakeV2Tokens = await getPancakeV2Tokens(pancakeV2Txns);
-      acc.setTxns([...bep20Txns]);
+      acc.setTxns([...bep20Txns, ...unknownTxns]);
       acc.setPancakeV2Txns([...pancakeV2Txns]);
       acc.setTokens([...tokens]);
       acc.setPancakeV2Tokens([...pancakeV2Tokens]);
