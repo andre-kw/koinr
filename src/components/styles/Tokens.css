@@ -1,12 +1,13 @@
 #tokens > div {
   max-height: 80vh;
-  max-width: 30rem;
+  max-width: 50vw;
   margin: 0 auto;
   padding: 1em;
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  transition: all 0.5s;
 }
 
   /* #tokens > div::-webkit-scrollbar {
@@ -95,5 +96,26 @@
   to {
     transform: scale(1);
     transform: translateY(-7px);
+  }
+}
+
+@media screen and (min-width: 950px) {
+  #app.info #tokens > div {
+    max-width: 44vw;
+    transform: translateX(-20vw);
+  }
+
+  #app > #tokens {
+    margin: 10vh 0 0;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  #tokens > div {
+    max-width: 75rem;
+  }
+
+  #app.info #tokens > div {
+    transform: translateX(-22em);
   }
 }

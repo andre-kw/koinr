@@ -38,6 +38,7 @@
   align-items: center;
   position: relative;
   padding: 0.5em 0;
+  word-break: break-all;
 }
 
 #info-drawer > header .token-icon {
@@ -231,4 +232,17 @@
 @keyframes slide-down {
   from { transform: translateY(0) }
   to { transform: translateY(85vh) }
+}
+
+@media screen and (min-width: 950px) {
+  #app > #info-drawer {
+    left: 50vw;
+    top: 20vh;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  #app > #info-drawer {
+    left: 55vw;
+  }
 }
