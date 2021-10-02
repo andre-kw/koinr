@@ -258,6 +258,7 @@ export const abi = [
 	}
 ];
 
+// credit to this stackoverflow answer - https://ethereum.stackexchange.com/a/78316
 export function fnSignatures() {
   const fnSignatures = {};
   const prepareData = e => `${e.name}(${e.inputs.map(e => e.type)})`;
