@@ -1,8 +1,8 @@
 #tokens > div {
   max-height: 80vh;
-  max-width: 50vw;
+  max-width: 42vw;
   margin: 0 auto;
-  padding: 1em;
+  padding: 0 1em;
   overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
@@ -108,6 +108,7 @@
 @media screen and (max-width: 768px) {
   #tokens > div {
     max-width: 80vw;
+    justify-content: space-around;
   }
 }
 
