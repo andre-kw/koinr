@@ -47,13 +47,16 @@
 
 
 #btn-copy {
+  min-width: 95%;
+  padding: 3px 6px;
   color: gray;
-  font-size: 0.75rem;
   appearance: none;
   border: 0;
   background: none;
   position: relative;
   font-size: 0.7rem;
+  font-family: courier;
+  border-radius: 10px
 }
 
   #btn-copy:hover,
