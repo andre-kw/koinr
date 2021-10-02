@@ -1,6 +1,7 @@
 #tokens > div {
-  max-height: 80vh;
   max-width: 42vw;
+  min-height: 15em;
+  max-height: 80vh;
   margin: 0 auto;
   padding: 0 1em;
   overflow-y: scroll;

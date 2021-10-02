@@ -165,9 +165,10 @@
 
   .token-txn .logo {
     width: 14px;
-    /* object-fit: contain; */
+    height: 14px;
     padding: 5px;
     border-radius: 50%;
+    overflow: hidden;
   }
 
   .token-txn img.pancake {
