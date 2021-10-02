@@ -1,6 +1,6 @@
 {
   "name": "koinr",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "mobile-first crypto portfolio",
   "main": "src/index.js",
   "scripts": {
