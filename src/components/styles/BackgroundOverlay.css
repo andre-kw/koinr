@@ -22,3 +22,9 @@
   animation-fill-mode: forwards;
   opacity: 1;
 }
+
+@media screen and (min-width: 950px) {
+  #app > #bg-overlay {
+    display: none;
+  }
+}

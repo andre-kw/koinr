@@ -37,7 +37,7 @@ function App() {
   }, [address]); */
 
   return (
-    <div id="app" className={`${acc.address ? '' : 'landing'} ${infoDrawerAddress ? 'blur' : ''}`}>
+    <div id="app" className={`${acc.address ? '' : 'landing'} ${infoDrawerAddress ? 'info' : ''}`}>
       <header>
         <div id="header-left"></div>
         <div id="header-center">

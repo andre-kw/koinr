@@ -3,16 +3,11 @@ import { toChecksumAddress } from 'web3-utils';
 import BnbImg from '../../public/img/bnb.png';
 
 export default function TokenImage(props) {
-  const imgRef = React.useRef();
+  const containerRef = React.useRef();
   const [img, setImg] = useState(null);
   const [useFallback, setUseFallback] = useState(false);
 
-  const onClick = () => {
-    img.classList.add('clicked');
-    setTimeout(() => {img.classList.remove('clicked')}, 500);
-  };
-
-  React.useEffect(() => {
+  const fetchImg = () => {
     const address = toChecksumAddress(props.address);
     const myImg = new Image();
     myImg.src = `https://assets.trustwalletapp.com/blockchains/smartchain/assets/${address}/logo.png`;
@@ -22,8 +17,17 @@ export default function TokenImage(props) {
     props.logo && myImg.classList.add('small');
     myImg.onerror = e => {e.target.onerror = null; setUseFallback(true)};
     setImg(myImg);
-    imgRef.current.appendChild(myImg);
-  }, []);
+    containerRef.current.appendChild(myImg);
+  };
+
+  React.useEffect(() => {
+    const c = containerRef.current;
+
+    if(c.firstChild)
+      c.removeChild(c.firstChild);
+
+    fetchImg();
+  }, [props.address]);
 
   React.useEffect(() => {
     if(!useFallback) return;
@@ -33,5 +37,5 @@ export default function TokenImage(props) {
   }, [useFallback]);
 
 
-  return <span ref={imgRef}></span>;
+  return <span ref={containerRef}></span>;
 }
