@@ -3,9 +3,18 @@ import TokenImage from './TokenImage';
 
 export default function TokenButton(props) {
   const [balance, setBalance] = useState('');
+  const [clicked, setClicked] = useState(false);
 
   const onClick = (e) => {
     props.onClick();
+    setClicked(true);
+
+    setTimeout(() => setClicked(false), 150);
+    setTimeout(() => {
+      const closeBtn = document.querySelector('#info-drawer .btn-close');
+      closeBtn.onclick = () => e.target.focus();
+      closeBtn.focus();
+    }, 300);
   };
 
   React.useEffect(() => {
@@ -39,7 +48,7 @@ export default function TokenButton(props) {
   }, [props.token]);
 
   return (
-    <button className="token" key={props.token.address} onClick={onClick}>
+    <button className={'token' + (clicked ? ' active' : '')} key={props.token.address} onClick={onClick}>
       <TokenImage address={props.token.address} />
 
       <div className="token-stats">
