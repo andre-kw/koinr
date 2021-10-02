@@ -27,6 +27,7 @@
   margin: 0.25em 0.5em;
   padding: 0.25em;
   transition: 0.7s ease 0.7s;
+  transition-property: transform;
   opacity: 1;
   display: flex;
   flex-direction: column;
@@ -34,14 +35,14 @@
   align-items: center;
   appearance: none;
   background: none;
-  border: none;
+  border: 3px dashed transparent;
   border-radius: 5px;
   cursor: pointer;
   outline: none;
 }
 
   .token:focus {
-    border: 1px solid #cbc0c0;
+    border-color: rgba(100, 100, 100, 0.2);
   }
 
 .token img {
