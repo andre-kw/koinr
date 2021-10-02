@@ -1,9 +1,10 @@
 #info-drawer {
   width: 75%;
   max-width: 22rem;
-  height: 35em;
-  max-height: 70vh;
-  margin: 0 auto 2em;
+  min-height: 25em;
+  height: 75vh;
+  /* margin: 0 auto 2em; */
+  margin: 0 auto 2vh;
   padding: 1.25em;
   display: none;
   flex-direction: column;
@@ -12,6 +13,7 @@
   right: 0;
   bottom: 0;
   transform: translateY(85vh);
+  opacity: 0;
   z-index: 10;
   background: #fff;
   border: 1px solid #ababab;
@@ -225,20 +227,42 @@
 
 
 @keyframes slide-up {
-  from { transform: translateY(85vh) }
-  to { transform: translateY(0) }
+  from { transform: translateY(85vh); opacity: 0 }
+  to { transform: translateY(0); opacity: 1 }
 }
 
 @keyframes slide-down {
-  from { transform: translateY(0) }
-  to { transform: translateY(85vh) }
+  from { transform: translateY(0); opacity: 1 }
+  to { transform: translateY(85vh); opacity: 0 }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(50vw); opacity: 0 }
+  to { transform: translateX(0); opacity: 1 }
+}
+
+@keyframes slide-out {
+  from { transform: translateX(0); opacity: 1 }
+  to { transform: translateX(50vw); opacity: 0 }
 }
 
 @media screen and (min-width: 950px) {
   #app > #info-drawer {
+    min-height: 25em;
+    height: 60vh;
     left: 50vw;
     top: 20vh;
+    transform: translateX(50vw);
   }
+
+    #info-drawer.open {
+      animation: 0.5s slide-in;
+      animation-fill-mode: forwards;
+    }
+    
+    #info-drawer.closing {
+      animation: 0.5s slide-out;
+    }
 }
 
 @media screen and (min-width: 1700px) {
