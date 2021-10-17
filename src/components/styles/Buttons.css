@@ -1,7 +1,11 @@
 #connect {
-  display: block;
-  margin: 0 auto;
-  background-color: gold;
+  max-width: 3em;
+  display: inline-block;
+  margin: 0 1em;
+  background: none;
+  color: #fff;
+  border: 2px solid transparent;
+  font-size: 1.5em;
 }
 
 .btn {

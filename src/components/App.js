@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import AccountContext from '../contexts/AccountContext';
 // import IDBContext from 'contexts/IDBContext';
 import ConnectButton from './ConnectButton';
@@ -39,16 +41,17 @@ function App() {
   return (
     <div id="app" className={`${acc.address ? '' : 'landing'} ${infoDrawerAddress ? 'info' : ''}`}>
       <header>
-        <div id="header-left"></div>
-        <div id="header-center">
-          <h1>KOOINR</h1> {/* COINBANA // KOINORI // KOOINR */}
+        <div id="header-left">
+          <h1>KOOINR</h1>
+          {acc.address && <button aria-label="app settings"><FontAwesomeIcon icon={faCog} /></button>}
         </div>
-        <div id="header-right"></div>
+        <div id="header-right">
+          {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
+        </div>
       </header>
       
       {acc.address && <TokenGrid setInfoDrawerAddress={setInfoDrawerAddress} />}
       {acc.address && <InfoDrawer tokenAddress={infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />}
-      {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
 
       <BackgroundOverlay show={!!infoDrawerAddress} setInfoDrawerAddress={setInfoDrawerAddress} />
     </div>

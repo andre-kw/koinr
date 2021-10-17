@@ -25,22 +25,60 @@ body {
 #app > header {
   padding: 1em 0;
   text-align: center;
-  max-height: 12vh;
+  min-height: 12vh;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
-#app > header h1 {
-  margin: 1em 0 0.5em;
-  font-size: 2.75rem;
-  font-family: 'Archivo';
-  font-style: italic;
-  font-weight: 100;
-  /* -webkit-text-stroke: 1px #00944f; */
-  color: #3e3e3e;
-    /* text-shadow: 5px 5px 0px #bbbbbb; */
-}
+  #app > header h1 {
+    width: 55vw;
+    max-width: 7.77em;
+    margin: 0;
+    font-size: 2.75rem;
+    font-family: 'Archivo';
+    font-style: italic;
+    font-weight: 100;
+    /* -webkit-text-stroke: 1px #00944f; */
+    color: #fff;
+    background-color: #242424;
+      /* text-shadow: 5px 5px 0px #bbbbbb; */
+  }
+
+  #app > header > div {
+    max-height: 3.5em;
+    height: 3em;
+    align-items: center;
+    display: flex;
+  }
+
+  #app > header #header-left {
+    display: flex;
+  }
+
+    #app > header #header-left button {
+      width: 2em;
+      margin-left: 0.5em;
+      padding: 0;
+      background: none;
+      border: 2px solid transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      appearance: none;
+      color: #a5a4a4;
+    }
+
+  #app > header #header-right {
+    background-color: #57d8ff;
+  }
+
+  #app > header #header-left button:hover,
+  #app > header #header-left button:focus {
+    border-color: #bdbdbd;
+    border-radius: 5px;
+  }
+
 
 #load-spinner {
   width: 7em;
