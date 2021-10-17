@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PullToRefresh from 'pulltorefreshjs';
 import Web3EthAbi from 'web3-eth-abi';
 import AccountContext from 'contexts/AccountContext';
+import TokenContext from '../contexts/TokenContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import useTxnIterator from '../hooks/TxnIterator';
@@ -18,6 +19,7 @@ import './styles/Tokens.css';
 
 export default function TokenGrid(props) {
   const acc = React.useContext(AccountContext);
+  const tkn = React.useContext(TokenContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
   const {getTokens} = useTxnIterator();
@@ -36,11 +38,9 @@ export default function TokenGrid(props) {
     const pancakeV2Sigs = PancakeSwapV2FnSignatures();
     const bep20Sigs = BEP20FnSignatures();
     const bep20Filter = txn => {
-      if(txn.to === PancakeSwapV1RouterAddress.toLowerCase())
-        return false;
-      if(txn.to === PancakeSwapV2RouterAddress.toLowerCase())
-        return false;
-      if(!bep20Sigs[txn.input.slice(0, 10)])
+      if(txn.to === PancakeSwapV1RouterAddress.toLowerCase()
+          || txn.to === PancakeSwapV2RouterAddress.toLowerCase()
+          || !bep20Sigs[txn.input.slice(0, 10)])
         return false;
       
       return true;
@@ -95,9 +95,9 @@ export default function TokenGrid(props) {
       acc.setTxns([...bep20Txns, ...unknownTxns]);
       acc.setPancakeV1Txns([...pancakeV1Txns]);
       acc.setPancakeV2Txns([...pancakeV2Txns]);
-      acc.setTokens([...tokens]);
+      tkn.setTokens([...tokens]);
       // acc.setPancakeV1Tokens([...pancakeV1Tokens]);
-      acc.setPancakeV2Tokens([...pancakeV2Tokens]);
+      tkn.setPancakeV2Tokens([...pancakeV2Tokens]);
     } catch(e) {
       handleError(e);
     }
@@ -121,13 +121,15 @@ export default function TokenGrid(props) {
   React.useEffect(() => {
     const arr = [];
 
-    [...acc.tokens, ...acc.pancakeV2Tokens].forEach(t => {
+    tkn.getAll().forEach((t, i) => {
+      if(i === 0)
+        arr.unshift(...tkn.constants);
       if(arr.findIndex(tk => tk.address.toLowerCase() === t.address.toLowerCase()) === -1)
         arr.push(t);
     });
 
     setTokens(arr);
-  }, [acc.tokens, acc.pancakeV2Tokens]);
+  }, [tkn.tokens, tkn.pancakeV2Tokens]);
 
   return (
     <section id="tokens" className={loading ? 'loading' : ''}>

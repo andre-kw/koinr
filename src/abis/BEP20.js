@@ -258,6 +258,7 @@ export const abi = [
 	}
 ];
 
+// TODO: abstract into helper function
 // credit to this stackoverflow answer - https://ethereum.stackexchange.com/a/78316
 export function fnSignatures() {
   const fnSignatures = {};

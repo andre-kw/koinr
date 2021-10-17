@@ -5,6 +5,7 @@ import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
 import { DateTime } from 'luxon';
 import AccountContext from '../contexts/AccountContext';
+import TokenContext from '../contexts/TokenContext';
 import useWallet from '../hooks/Wallet';
 import useErrorHandler from '../hooks/ErrorHandler';
 import TokenImage from './TokenImage';
@@ -15,6 +16,7 @@ import './styles/InfoDrawer.css';
 
 export default function InfoDrawer(props) {
   const acc = React.useContext(AccountContext);
+  const tkn = React.useContext(TokenContext);
   const eth = useWallet();
   const handleError = useErrorHandler();
   const [token, setToken] = useState(null);
@@ -40,8 +42,7 @@ export default function InfoDrawer(props) {
       return;
     }
 
-    let t = [...acc.tokens, ...acc.pancakeV2Tokens]
-      .find(tk => tk.address === props.tokenAddress);
+    let t = tkn.getAll().find(tk => tk.address === props.tokenAddress);
 
     const addr = toChecksumAddress(t.address);
       

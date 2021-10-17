@@ -2,15 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './components/App';
 import { AccountProvider } from './contexts/AccountContext';
-import { IDBProvider } from './contexts/IDBContext';
+import { TokenProvider } from './contexts/TokenContext';
 
 render(
   <React.StrictMode>
-    <IDBProvider>
+    <TokenProvider>
       <AccountProvider>
         <App />
       </AccountProvider>
-    </IDBProvider>
+    </TokenProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
