@@ -148,7 +148,7 @@ function TokenData(props) {
 
 function TxnItem(props) {
   // const date = new Date(props.txn.timeStamp * 1000);
-  const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_SHORT);
+  const formattedDate = DateTime.fromSeconds(Number(props.txn.timeStamp)).toLocaleString(DateTime.DATETIME_MED);
   const isPancakeV1 = props.txn.to === PancakeSwapV1RouterAddress.toLowerCase();
   const isPancakeV2 = props.txn.to === PancakeSwapV2RouterAddress.toLowerCase();
   let logo, fn = '';

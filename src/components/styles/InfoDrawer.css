@@ -11,7 +11,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 1em;
   transform: translateY(85vh);
   opacity: 0;
   z-index: 10;
@@ -69,7 +69,7 @@
   top: -0.5em;
   appearance: none;
   font-size: 0.75em;
-  padding: .75em 1em;
+  padding: .5em 1em;
   /* border-radius: 20%; */
   cursor: pointer;
   transition: .15s all;
@@ -250,24 +250,25 @@
 @media screen and (min-width: 950px) {
   #app > #info-drawer {
     min-height: 25em;
-    height: 60vh;
+    height: 50vh;
+    /* box-shadow: -4px -7px 20px 20px #f1f1f1;
     left: 50vw;
     top: 20vh;
-    transform: translateX(50vw);
+    transform: translateX(50vw); */
   }
 
-    #info-drawer.open {
+    /* #info-drawer.open {
       animation: 0.5s slide-in;
       animation-fill-mode: forwards;
     }
     
     #info-drawer.closing {
       animation: 0.5s slide-out;
-    }
+    } */
 }
 
-@media screen and (min-width: 1700px) {
+/* @media screen and (min-width: 1700px) {
   #app > #info-drawer {
     left: 55vw;
   }
-}
+}  */

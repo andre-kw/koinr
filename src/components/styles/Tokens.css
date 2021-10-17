@@ -1,5 +1,6 @@
 #tokens > div {
-  max-width: 42vw;
+  /* width: 42vw; */
+  min-width: 70vw;
   min-height: 15em;
   max-height: 80vh;
   margin: 0 auto;
@@ -80,17 +81,22 @@
   min-height: 1em;
 }
 
-.token-stats p {
-  margin: 0;
-  font-size: 0.75rem;
-  /* font-weight: bold; */
-  align-self: flex-end;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  text-align: right;
-  /* white-space: nowrap; */
-  color: #353535;
-}
+  .token-stats p {
+    margin: 0;
+    font-size: 0.75rem;
+    /* font-weight: bold; */
+    align-self: flex-end;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: right;
+    /* white-space: nowrap; */
+    color: #353535;
+  }
+
+  .token-stats strong {
+    background-color: #e7e7e7;
+    padding: 0 3px;
+  }
 
 /* #tokens.loading .token {
   opacity: 0;
@@ -107,22 +113,23 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   #tokens > div {
     max-width: 80vw;
     justify-content: space-around;
   }
-}
+} */
 
 @media screen and (min-width: 950px) {
-  #app.info #tokens > div {
-    transform: translateX(-21vw);
+  #tokens > div {
+    max-width: 75vw;
+    /* transform: translateX(-21vw);
     transition-delay: 0.15s;
-    transition-timing-function: ease-out;
+    transition-timing-function: ease-out; */
   }
 }
 
-@media screen and (min-width: 1400px) {
+/* @media screen and (min-width: 1400px) {
   #app.info #tokens > div {
     transform: translateX(-18vw);
   }
@@ -136,4 +143,4 @@
   #app.info #tokens > div {
     transform: translateX(-22em);
   }
-}
+} */
