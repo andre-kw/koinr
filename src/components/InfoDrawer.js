@@ -4,6 +4,7 @@ import { faArrowAltCircleRight, faCopy } from '@fortawesome/free-solid-svg-icons
 import ClipboardJS from 'clipboard';
 import { toChecksumAddress } from 'web3-utils';
 import { DateTime } from 'luxon';
+import { BigNumber } from '@ethersproject/bignumber';
 import AccountContext from '../contexts/AccountContext';
 import TokenContext from '../contexts/TokenContext';
 import useWallet from '../hooks/Wallet';
@@ -57,19 +58,31 @@ export default function InfoDrawer(props) {
       return;
 
     (async () => {
-      let b;
+      let balance, b;
 
       try {
-        b = await token.contract.balanceOf(eth.selectedAddress());
+        balance = await token.contract.balanceOf(eth.selectedAddress());
       } catch(e) {
         handleError(e);
-        
-        if(props.tokenAddress.toLowerCase() === PancakeSwapV2RouterAddress.toLowerCase())
-          console.log('ahoy matey its pancakeswarp');
       }
 
-      const bb = b ? Number(b.toBigInt() / BigInt(10 ** token.decimals)).toLocaleString() : '---';
-      setToken({...token, computedBalance: bb});
+      if(balance) {
+        b = Number(balance / (BigNumber.from(10) ** token.decimals));
+
+        if(b > 0) {
+          if(b < 1) {
+            b = Number(b.toFixed(10));
+          } else if(b < 1000) {
+            b = Number(b.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2});
+          } else {
+            b = Number(b.toFixed(0)).toLocaleString();
+          }
+        }
+      } else {
+        b = '???';
+      }
+
+      setToken({...token, computedBalance: b});
     })();
   }, [token]);
 
@@ -93,7 +106,7 @@ export default function InfoDrawer(props) {
               <a href={`https://poocoin.app/tokens/${token.address}`} className="btn btn-poo" target="_blank" aria-label={`${token.name} on PooCoin`}></a>
             </div>
             <div id="drawer-balance">
-              <p>{token && token.computedBalance ? token.computedBalance : '---'}</p>
+              <p>{token && token.computedBalance ? token.computedBalance : '--'}</p>
             </div>
           </div>
         </header>
