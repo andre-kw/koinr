@@ -11,7 +11,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 1em;
+  bottom: 2em;
   transform: translateY(85vh);
   opacity: 0;
   z-index: 10;

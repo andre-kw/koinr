@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 950px) {
-  #app > #bg-overlay {
+  /* #app > #bg-overlay {
     display: none;
-  }
+  } */
 }
