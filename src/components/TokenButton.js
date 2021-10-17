@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
+import { BigNumber } from '@ethersproject/bignumber';
 import TokenImage from './TokenImage';
+
+let truncateLessThanThousandValues = true;
 
 export default function TokenButton(props) {
   const [balance, setBalance] = useState('');
@@ -21,7 +24,7 @@ export default function TokenButton(props) {
     if(!props.token || !props.token.balance)
       return;
     
-    const b = Number(props.token.balance.toBigInt() / BigInt(10 ** props.token.decimals));
+    const b = Number(props.token.balance / (BigNumber.from(10) ** props.token.decimals));
     const suffixes = {
       1000: 'K',
       1000000: 'M',
@@ -33,13 +36,16 @@ export default function TokenButton(props) {
       if(b === 0)
         return setBalance(0);
 
+      if(b > 0 && b < 1)
+        return setBalance(String(Number(b / i).toFixed(5)));
+
       if(b >= i && b < i * 1000) {
-        let bb = String(b / i);
+        let bb = String(Number(b / i).toFixed(2));
 
         if(suffixes[i]) {
-          bb = bb.slice(0, bb.indexOf('.') + 3) + suffixes[i];
-        } else {
-          bb = b / i;
+          bb += suffixes[i];
+        } else if(truncateLessThanThousandValues) {
+          bb = bb.substring(0, bb.indexOf('.'));
         }
 
         return setBalance(bb);

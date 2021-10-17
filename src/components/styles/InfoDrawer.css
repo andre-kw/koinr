@@ -1,8 +1,7 @@
 #info-drawer {
   width: 75%;
   max-width: 22rem;
-  min-height: 25em;
-  height: 75vh;
+  min-height: 75vh;
   /* margin: 0 auto 2em; */
   margin: 0 auto 2vh;
   padding: 1.25em;
@@ -249,9 +248,9 @@
 
 @media screen and (min-width: 950px) {
   #app > #info-drawer {
-    min-height: 25em;
-    height: 50vh;
-    /* box-shadow: -4px -7px 20px 20px #f1f1f1;
+    min-height: 65vh;
+    /* height: 50vh;
+    box-shadow: -4px -7px 20px 20px #f1f1f1;
     left: 50vw;
     top: 20vh;
     transform: translateX(50vw); */

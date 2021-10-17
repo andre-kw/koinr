@@ -42,7 +42,8 @@ export default function InfoDrawer(props) {
       return;
     }
 
-    let t = tkn.getAll().find(tk => tk.address === props.tokenAddress);
+    let t = [...tkn.getAll(), ...tkn.constants]
+      .find(tk => tk.address === props.tokenAddress);
 
     const addr = toChecksumAddress(t.address);
       

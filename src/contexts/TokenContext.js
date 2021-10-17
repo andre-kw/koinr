@@ -23,7 +23,7 @@ export function TokenProvider(props) {
   const [pancakeV2Tokens, setPancakeV2Tokens] = useState([]);
   const [constants, setConstants] = useState([]);
 
-  const getAll = () => [...constants, ...tokens, ...pancakeV1Tokens, ...pancakeV2Tokens];
+  const getAll = () => [...tokens, ...pancakeV1Tokens, ...pancakeV2Tokens];
 
   React.useEffect(() => {
     (async () => {
