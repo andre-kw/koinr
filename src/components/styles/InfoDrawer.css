@@ -20,18 +20,18 @@
   border-bottom-width: 5px;
 }
 
-#info-drawer[open] {
-  display: flex;
-}
+  #info-drawer[open] {
+    display: flex;
+  }
 
-#info-drawer.open {
-  animation: 0.35s slide-up;
-  animation-fill-mode: forwards;
-}
+  #info-drawer.open {
+    animation: 0.35s slide-up;
+    animation-fill-mode: forwards;
+  }
 
-#info-drawer.closing {
-  animation: 0.35s slide-down;
-}
+  #info-drawer.closing {
+    animation: 0.35s slide-down;
+  }
 
 #info-drawer > header {
   display: flex;
@@ -42,37 +42,50 @@
   word-break: break-all;
 }
 
-#info-drawer > header .token-icon {
-  margin: -3.5em 0 0.5em;
-  box-shadow: 0px 4px 11px -7px black;
-}
-
-  .token-icon {
-    border: 1px solid gray;
-    border-radius: 50%;
-    background-color: #fff;
+  #info-drawer > header > span {
+    align-self: start;
   }
 
-  .token-icon.small {
-    border: none;
+  #info-drawer > header .token-icon {
+    margin: -3.5em 0 0.5em;
+    box-shadow: 0px 4px 11px -7px black;
   }
+
+    .token-icon {
+      border: 1px solid gray;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+
+    .token-icon.small {
+      border: none;
+    }
 
 #info-drawer h2 {
   margin: 0.25em 0;
   font-size: 1.25rem;
 }
 
+#info-drawer-title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
 #info-drawer .btn-close {
   position: absolute;
-  right: -0.75em;
+  right: 0em;
   top: -0.5em;
   appearance: none;
   font-size: 0.75em;
   padding: .5em 1em;
+  border-color: #b6b6b6;
   /* border-radius: 20%; */
   cursor: pointer;
   transition: .15s all;
   outline: none;
+  background: none;
 }
 
 #info-drawer .btn-close:hover, 
@@ -182,34 +195,48 @@
   width: 100%;
   padding: 0.75em 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-#drawer-ctrls p {
-  margin: 0;
-  float: right;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #fff;
-  font-family: 'Archivo';
-  font-weight: 500;
-  letter-spacing: 1px;
-}
+  #drawer-ctrls .btn {
+    min-height: 1em;
+    min-width: 2em;
+    margin: 0 0.75em 0 0;
+    box-sizing: content-box;
+  }
+
+  /* #drawer-ctrls p {
+    margin: 0;
+    float: right;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #fff;
+    font-family: 'Archivo';
+    font-weight: 500;
+    letter-spacing: 1px;
+  } */
 
 #drawer-balance {
+  margin: 0;
   background-color: #0e96f7;
-  padding: 3px 5px;
+  color: #fff;
+  padding: 5px 8px 0;
   border-radius: 5px;
   position: relative;
+  font-family: 'Archivo';
+  font-weight: 500;
+  font-size: 1.25em;
+  letter-spacing: 1px;
+  text-shadow: 0px 3px 0px #0975b5;
 }
 
   #drawer-balance::after {
     content: ' ';
-    display: block;
+    display: none;
     position: absolute;
     width: 20px;
     height: 20px;
+    top: 0.5em;
     left: -1.75em;
     background-image: url(/public/img/coin.gif);
     background-size: 300%;

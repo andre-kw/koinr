@@ -93,21 +93,19 @@ export default function InfoDrawer(props) {
           <button className="btn btn-close" onClick={() => props.setInfoDrawerAddress(null)} aria-label="close info drawer" tabIndex="0">X</button>
           
           <TokenImage address={token.address} />
-          <h2>{token.name || <em>unknown token</em>}</h2>
+          <div id="info-drawer-title">
+            <h2>{token.name || <em>unknown token</em>}</h2>
+            <strong id="drawer-balance">{token && token.computedBalance ? token.computedBalance : '--'}</strong>
+          </div>
 
-          {checksumAddress && 
-            <button id="btn-copy" data-clipboard-text={checksumAddress} aria-label={`Copy ${token.name} contract address`}>
-              <FontAwesomeIcon icon={faCopy} /> {checksumAddress}
-            </button> }
+          
 
           <div id="drawer-ctrls">
-            <div>
-              <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank" aria-label={`${token.name} on BSC scan`}></a>
-              <a href={`https://poocoin.app/tokens/${token.address}`} className="btn btn-poo" target="_blank" aria-label={`${token.name} on PooCoin`}></a>
-            </div>
-            <div id="drawer-balance">
-              <p>{token && token.computedBalance ? token.computedBalance : '--'}</p>
-            </div>
+            <button id="btn-copy" className="btn" data-clipboard-text={checksumAddress} aria-label={`Copy ${token.name} contract address`}>
+              <FontAwesomeIcon icon={faCopy} />
+            </button>
+            <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank" aria-label={`${token.name} on BSC scan`}></a>
+            <a href={`https://poocoin.app/tokens/${token.address}`} className="btn btn-poo" target="_blank" aria-label={`${token.name} on PooCoin`}></a>
           </div>
         </header>
 
