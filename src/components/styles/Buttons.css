@@ -46,6 +46,12 @@
       background-image: url(/public/img/poocoin.png);
     }
 
+    .btn-cake {
+      color: #069d87;
+      border-color: #069d87;
+      background-image: url(/public/img/pancakeswap.png);
+    }
+
 
 /* #btn-copy {
   min-width: 95%;

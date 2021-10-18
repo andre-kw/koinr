@@ -105,6 +105,7 @@ export default function InfoDrawer(props) {
               <FontAwesomeIcon icon={faCopy} />
             </button>
             <a href={`https://bscscan.com/address/${token.address}`} className="btn btn-bsc" target="_blank" aria-label={`${token.name} on BSC scan`}></a>
+            <a href={`https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=${token.address}`} className="btn btn-cake" target="_blank" aria-label={`Swap ${token.name} on PancakeSwap`}></a>
             <a href={`https://poocoin.app/tokens/${token.address}`} className="btn btn-poo" target="_blank" aria-label={`${token.name} on PooCoin`}></a>
           </div>
         </header>
