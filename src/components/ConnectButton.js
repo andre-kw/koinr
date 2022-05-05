@@ -10,6 +10,9 @@ export default function ConnectButton(props) {
   const handleError = useErrorHandler();
 
   const requestAccounts = async (e) => {
+    if(!window.ethereum)
+      return;
+      
     try {
       const res = await eth.requestAccounts();
       props.setAddress(res[0]);
@@ -21,7 +24,7 @@ export default function ConnectButton(props) {
   return (
     <button 
       type="button" 
-      onClick={window.ethereum ? requestAccounts : null} 
+      onClick={requestAccounts} 
       className={window.ethereum ? '' : 'btn-err'} 
       aria-disabled={window.ethereum ? 'false' : 'true'} 
       id="connect">

@@ -15,7 +15,6 @@ function useErrorHandler() {
     }
 
     console.error(`Caught error: ${err.message}`);
-    console.trace();
   };
 }
 
