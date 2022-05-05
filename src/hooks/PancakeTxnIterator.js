@@ -60,8 +60,7 @@ export default function usePancakeTxnIterator() {
         balance = await contract.balanceOf(eth.selectedAddress());
         decimals = await contract.decimals();
       } catch(e) {
-        e.data.origin = 'getTokens';
-        e.data.address = token.address;
+        e.data = {origin: 'getTokens', address: token.address};
         handleError(e);
         // continue;
       }
