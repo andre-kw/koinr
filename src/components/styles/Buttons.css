@@ -1,8 +1,9 @@
 #connect {
-  max-width: 3em;
+  width: 100%;
+  height: 100%;
   display: inline-block;
-  margin: 0 1em;
-  background: none;
+  margin: 0;
+  background: #57d8ff;
   color: #fff;
   border: 2px solid transparent;
   font-size: 1.5em;
@@ -50,6 +51,11 @@
       color: #069d87;
       border-color: #069d87;
       background-image: url(/public/img/pancakeswap.png);
+    }
+
+    #connect.btn-err {
+      background-color: red;
+      color: #fff;
     }
 
 
