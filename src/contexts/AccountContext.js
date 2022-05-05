@@ -16,8 +16,9 @@ export function AccountProvider(props) {
   const [pancakeV2Txns, setPancakeV2Txns] = useState([]);
 
   React.useEffect(() => {
-    setAddress(window.ethereum.selectedAddress);
-  }, [window.ethereum.selectedAddress]);
+    if(window.ethereum)
+      setAddress(window.ethereum.selectedAddress);
+  }, [window.ethereum]);
 
   const value = {
     address, setAddress,

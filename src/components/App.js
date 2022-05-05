@@ -46,6 +46,7 @@ function App() {
           {acc.address && <button aria-label="app settings"><FontAwesomeIcon icon={faCog} /></button>}
         </div>
         <div id="header-right">
+          {(!acc.address && !window.ethereum) && <p>Please install MetaMask to continue.</p>}
           {!acc.address && <ConnectButton setAddress={acc.setAddress} />}
         </div>
       </header>

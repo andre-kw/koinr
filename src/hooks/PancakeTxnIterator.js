@@ -47,8 +47,7 @@ export default function usePancakeTxnIterator() {
     const temp = [];
 
     for await (let token of await iterator(txns)) {
-      if(!token 
-          || temp.findIndex(t => token.address === t.address) > -1)
+      if(!token || temp.findIndex(t => token.address === t.address) > -1)
         continue;
 
       let contract, name, symbol, balance, decimals;
@@ -60,8 +59,7 @@ export default function usePancakeTxnIterator() {
         balance = await contract.balanceOf(eth.selectedAddress());
         decimals = await contract.decimals();
       } catch(e) {
-        e.data.origin = 'getTokens';
-        e.data.address = token.address;
+        e.data = {origin: 'getTokens', address: token.address};
         handleError(e);
         // continue;
       }

@@ -70,8 +70,14 @@ body {
     }
 
   #app > header #header-right {
-    background-color: #57d8ff;
+    width: 40%;
+    max-width: 12em;
   }
+
+    #header-right > p {
+      font-size: 0.75em;
+      color: red;
+    }
 
   #app > header #header-left button:hover,
   #app > header #header-left button:focus {
